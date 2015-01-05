@@ -1,0 +1,175 @@
+@CHARSET "UTF-8";
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+	font-size: small;
+	color: rgb(90, 90, 90);
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(250,250,250,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(250,250,250,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(250,250,250,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(250,250,250,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(250,250,250,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(250,250,250,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fafafa',GradientType=0 ); /* IE6-9 */
+}
+
+.ui-menu.ui-menubar {
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	height: 40px;
+	padding-top: 10px;
+	border-radius: 0px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+}
+
+.menubar-logo {
+	position: fixed;
+	left: 10px;
+	top: 10px;
+	padding-left: 170px;
+	padding-bottom: 35px;
+	background: url(../resources/images/img_logo_small.png) no-repeat 0 0px;
+	z-index: 99999;
+}
+
+.footer {
+	position: relative;
+	height: 60px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	text-align: center;
+	z-index: 9999;
+}
+
+.footer-content {
+	margin-top: 10px;
+}
+
+.footer-links {
+	margin-top: 10px;
+}
+
+.footer-links a {
+	color: #009EFF;
+	text-decoration: none;
+}
+
+.footer-links a:HOVER {
+	color: #FF1D1D;
+	text-decoration: none;
+}
+
+.footer-separator-vert {
+	background-color: rgb(203, 203, 203);
+}
+
+.splitter-horizontal {
+	position: relative;
+	height: 1px;
+	width: 100%;
+	background-color: rgb(223, 223, 223);
+}
+
+.welcome-content {
+	position: relative;
+	top: 55px;
+	padding-bottom: 60px;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+.welcome-block-first {
+	overflow: hidden;
+	padding: 20px;
+	position: relative;
+	background-color: #03A9F4;
+	color: white;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+	z-index: 99;
+}
+
+.welcome-block {
+	overflow: hidden;
+	padding: 20px;
+	position: relative;
+	background-color: white;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-text {
+	float: left;
+	line-height: 1.5em;
+}
+
+.welcome-text-big {
+	font-size: large;
+}
+
+.welcome-text-medium {
+	font-size: medium;
+}
+
+.welcome-text-small {
+	font-size: small;
+}
+
+.welcome-link-help {
+	height: 18px;
+	float: right;
+	text-decoration: none;
+	color: #F9FDFF;
+	background: url(../resources/icons/icon_help.png) no-repeat 0 0px;
+    padding-left: 20px;
+    line-height: 1.5em;
+}
+
+.welcome-link-help:HOVER {
+	color: #FAFF2D;
+}
+
+.welcome-item-left {
+	float: left;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.welcome-item-right {
+	float: right;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.welcome-features-list {
+	list-style: disc outside;
+	line-height: 1.4em;
+	font-size: medium;
+	color: rgb(120, 120, 120);
+}
+
+.welcome-link-tutorial {
+	color: #03A9F4;
+	text-decoration: none;
+	padding: 5px;
+}
+
+.welcome-link-tutorial:HOVER {
+	color: white;
+	background-color: #03A9F4;
+}
+	
+.welcom-text-center {
+	text-align: center;
+}
+
+.welcom-block-devices {
+	padding: 30px;
+	line-height: 2.0em;
+}
