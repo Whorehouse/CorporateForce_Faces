@@ -4,12 +4,12 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<h:form>
 		<p:growl id="messages" />
-		<p:commandLink styleClass="menubar-logo" actionListener="#{mainBean.actionMainPage}" />
+		<p:commandLink styleClass="menubar-logo" actionListener="#{mainBean.actionServer}" />
 		
 		<p:menubar id="menubar">
 
-			<p:menuitem value="Консоль" styleClass="menubar-menuitem menubar-menuitem-selected" rendered="#{usersBean.isSignedIn()}" actionListener="#{mainBean.actionMainPage}" />
-			<p:menuitem value="Лица" styleClass="menubar-menuitem" rendered="#{usersBean.isSignedIn()}" actionListener="#{mainBean.actionOpenFaces}" />
+			<p:menuitem value="Консоль" styleClass="menubar-menuitem" rendered="#{usersBean.isSignedIn()}" actionListener="#{mainBean.actionConsole}" />
+			<p:menuitem value="Лица" styleClass="menubar-menuitem menubar-menuitem-selected" rendered="#{usersBean.isSignedIn()}" actionListener="#{mainBean.actionOpenFaces}" />
 			<p:menuitem value="Проекты" styleClass="menubar-menuitem" rendered="#{usersBean.isSignedIn()}" actionListener="#{mainBean.actionOpenProjects}" />
 			<p:menuitem value="Тренинги" styleClass="menubar-menuitem" rendered="#{usersBean.isSignedIn()}" actionListener="#{mainBean.actionOpenTrainings}" />
 

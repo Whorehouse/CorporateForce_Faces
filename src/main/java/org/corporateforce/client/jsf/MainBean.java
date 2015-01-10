@@ -15,8 +15,10 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class MainBean implements Serializable {
 
-	public static final String PAGE_LOGIN = "/login";
-	public static final String PAGE_LOGOUT = "/logout";
+	public static final String PAGE_LOGIN = "login";
+	public static final String PAGE_LOGOUT = "logout";
+	public static final String PAGE_CONSOLE = "console";
+	
 	public static final String PAGE_INDEX = "/index";
 	public static final String PAGE_WELCOME = "/welcome";
 	
@@ -41,10 +43,6 @@ public class MainBean implements Serializable {
 		this.redirect(page,false);		
 	}
 
-	public void actionLogin() throws Exception {
-		this.redirect(Config.getUriServer()+PAGE_LOGIN);
-	}
-
 	public void actionMainPage() throws Exception {
 		if (usersBean.isSignedIn()) {
 			this.redirect(PAGE_INDEX);
@@ -52,9 +50,28 @@ public class MainBean implements Serializable {
 			actionLogin();
 		}
 	}
+	
+
+	//External resources
+	
+	public void actionServer() throws Exception {
+		this.redirect(Config.getUriServer(),true);
+	}
+
+	public void actionLogin() throws Exception {
+		this.redirect(Config.getUriServer()+PAGE_LOGIN,true);
+	}
 
 	public void actionLogout() throws Exception {
 		this.redirect(Config.getUriServer()+PAGE_LOGOUT,true);
+	}
+	
+	public void actionConsole() throws Exception {
+		if (usersBean.isManageUsersAccess()) {
+			this.redirect(Config.getUriServer()+PAGE_CONSOLE,true);
+		} else {
+			actionServer();
+		}
 	}
 
 	public void actionOpenFaces() throws Exception {
