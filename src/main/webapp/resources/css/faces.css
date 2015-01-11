@@ -27,6 +27,7 @@
 	margin-right: 15px;
 	height: auto;
 	box-shadow: none;
+	z-index: 50;
 }
 
 .page-container form {

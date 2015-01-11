@@ -43,7 +43,24 @@
 						<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText
 								value="#{usersBean.showUser.contacts.about}" /></li>
 					</ul>
-				</div>
+				</div>				
+				<p:panel styleClass="user-chatter-block" header="Стена">
+					<c:forEach var="chatter" items="#{chatterBean.listForParent(usersBean.showUser)}">
+						<div class="user-chatter-element">
+							<h:outputText
+								styleClass="chatter-created"
+								value="#{chatter.created}">
+								<f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss" />
+							</h:outputText>
+							<div class="chatter-creator">#{chatter.usersByCreator.username}</div>
+							<div class="chatter-body">#{chatter.body}</div>
+						</div>
+					</c:forEach>
+					<p:panel styleClass="chatter-input-panel">
+						<p:inputTextarea value="#{chatterBean.newChatter.body}"></p:inputTextarea>
+						<p:commandButton value="Отправить" action="#{chatterBean.createChatter(false)}" />
+					</p:panel>
+				</p:panel>
 			</p:panel>
 		</h:form>
 	</ui:define>
