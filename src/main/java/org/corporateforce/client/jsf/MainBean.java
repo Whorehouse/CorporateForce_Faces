@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @SuppressWarnings("serial")
 @Component
-@Scope("session")
+@Scope("request")
 public class MainBean implements Serializable {
 
 	public static final String PAGE_LOGIN = "login";
@@ -25,13 +25,6 @@ public class MainBean implements Serializable {
 	private static final String MODULE_FACES = "Faces";
 	private static final String MODULE_PROJECTS = "Projects";
 	private static final String MODULE_TRAININGS = "Trainings";
-	
-	@Autowired
-	UsersBean usersBean;
-
-	public void setUsersBean(UsersBean usersBean) {
-		this.usersBean = usersBean;
-	}
 
 	private void redirect(String page, boolean external) throws Exception {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -44,11 +37,7 @@ public class MainBean implements Serializable {
 	}
 
 	public void actionMainPage() throws Exception {
-		if (usersBean.isSignedIn()) {
-			this.redirect(PAGE_INDEX);
-		} else {
-			actionLogin();
-		}
+		this.redirect(PAGE_INDEX);
 	}
 	
 
@@ -67,11 +56,7 @@ public class MainBean implements Serializable {
 	}
 	
 	public void actionConsole() throws Exception {
-		if (usersBean.isManageUsersAccess()) {
-			this.redirect(Config.getUriServer()+PAGE_CONSOLE,true);
-		} else {
-			actionServer();
-		}
+		this.redirect(Config.getUriServer()+PAGE_CONSOLE,true);
 	}
 
 	public void actionOpenFaces() throws Exception {

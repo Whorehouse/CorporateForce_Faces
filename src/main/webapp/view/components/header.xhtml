@@ -4,6 +4,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<h:form>
 		<p:growl id="messages" />
+		<c:if test="#{usersBean.updateUser()}" />
 		<p:commandLink styleClass="menubar-logo" actionListener="#{mainBean.actionServer}" />
 		
 		<p:menubar id="menubar">
@@ -20,6 +21,7 @@
 					<p:commandButton value="Регистрация" actionListener="#{mainBean.actionLogin}" />
 				</p:outputPanel>
 				<p:outputPanel styleClass="menubar-block-right" rendered="#{usersBean.isSignedIn()}">
+					<img class="manubar-user-image" src="#{usersBean.getAvatar()}"></img>
 					<p:menuButton value="#{usersBean.currentUser.username}" iconPos="right">
 						<p:menuitem value="Выход" actionListener="#{mainBean.actionLogout}" />
 					</p:menuButton>

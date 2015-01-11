@@ -9,20 +9,42 @@
 	template="/view/templates/default.xhtml">
 	<ui:define name="body">
 		<h:form>
-			<p:outputPanel styleClass="welcome-content">
-				<p:dataTable var="user" value="#{usersBean.list}">
-					<p:column headerText="Id">
-						<h:outputText value="#{user.id}" />
-					</p:column>
-
-					<p:column headerText="Username">
-						<h:outputText value="#{user.username}" />
-					</p:column>
-
-					<p:column headerText="Office">
-						<h:outputText rendered="#{user.offices!=null}" value="#{user.offices.name}" />
-					</p:column>
-				</p:dataTable>
+			<p:outputPanel rendered="#{!usersBean.isSignedIn()}">
+				<div class="page-container">
+					<p:panel header="Лица" styleClass="page-block">
+						<img class="welcome-item-left"
+							src="resources/images/img_faces.png"></img>
+						<div class="welcome-text-big welcome-item-left">
+							Все сотрудники в одном месте
+							<ul class="welcome-features-list">
+								<li>Быстрый доступ к списку сотрудников</li>
+								<li>Иерархия организации в простой форме</li>
+								<li>Быстрый доступ ко всем контактам</li>
+								<li>Загрузка документов и фото</li>
+								<li>Создание объявлений для всех сотрудников</li>
+								<li>Расписание отпусков</li>
+							</ul>
+						</div>
+						<div style="float:none;clear:both;"></div>
+					</p:panel>
+				</div>
+			</p:outputPanel>
+			<p:outputPanel rendered="#{usersBean.isSignedIn() and (not usersBean.isExistContacts())}" styleClass="page-container">
+				<h1>Контактов нет, но юзер залогинен</h1>
+			</p:outputPanel>
+			<p:outputPanel rendered="#{usersBean.isExistContacts()}">
+				<div class="page-container">
+					<p:panel id="mypersone-page" autoUpdate="true" header="#{usersBean.currentUser.contacts.firstname} #{usersBean.currentUser.contacts.nickname} #{usersBean.currentUser.contacts.lastname}" styleClass="page-block">
+						<img src="#{usersBean.getAvatar()}" onclick="PF('popupUploadImage').show();" style="width:200px;"/>
+					</p:panel>
+				</div>				
+				<!-- Popup for image download -->
+				<p:dialog header="Загрузка изображения" widgetVar="popupUploadImage" modal="true" height="100">
+				    <h:form>
+				    	<p:fileUpload fileUploadListener="#{usersBean.uploadImage}" mode="advanced" dragDropSupport="false"
+           					ajax="false" sizeLimit="1000000" fileLimit="1" allowTypes="/(\.|\/)(jpe?g|png)$/" />
+				    </h:form>
+				</p:dialog> 
 			</p:outputPanel>
 		</h:form>
 	</ui:define>

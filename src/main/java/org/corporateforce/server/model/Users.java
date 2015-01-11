@@ -37,6 +37,7 @@ public class Users implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
+	private Contacts contacts;
 	private Offices offices;
 	private Profiles profiles;
 	private Roles roles;
@@ -58,8 +59,9 @@ public class Users implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Users(Offices offices, Profiles profiles, Roles roles, Users users,
+	public Users(Contacts contacts, Offices offices, Profiles profiles, Roles roles, Users users,
 			Date created, Date updated, String username, String password) {
+		this.contacts = contacts;
 		this.offices = offices;
 		this.profiles = profiles;
 		this.roles = roles;
@@ -79,6 +81,16 @@ public class Users implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CONTACT")
+	public Contacts getContacts() {
+		return this.contacts;
+	}
+
+	public void setContacts(Contacts contacts) {
+		this.contacts = contacts;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
