@@ -1,1 +1,12 @@
 @CHARSET "UTF-8";
+
+#user-avatar {
+	float:left;
+	width:200px;
+}
+
+#user-block-contacts {
+	float: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
