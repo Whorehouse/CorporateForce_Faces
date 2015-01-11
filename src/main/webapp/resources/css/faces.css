@@ -33,3 +33,31 @@
 	margin-top:0;
 	margin-bottom:0;
 }
+
+.user-collegs-block {
+	width: 600px;
+	position:relative;
+}
+
+.user-collegs-item {
+	position:relative;
+	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+	background-repeat: repeat-x;
+	border: 1px solid #d4d4d4;
+	width:95%;
+	margin:3px;
+	padding:10px;
+}
+
+.user-collegs-item .ui-commandlink{
+	margin-left: 60px;
+	line-height: 40px;
+}
+
+.user-collegs-item .user-collegs-avatar {
+	position:absolute;
+	left:10px;
+	top:10px;
+	width: 40px;
+	height:40px;
+}

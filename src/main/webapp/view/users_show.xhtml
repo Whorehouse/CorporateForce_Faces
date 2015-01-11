@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/view/templates/faces.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<p:panel
+				rendered="#{!usersBean.isExistContacts(usersBean.showUser)}"
+				style="float:left;"
+				header="#{usersBean.showUser.username}"
+				styleClass="page-block mypersone-page">
+				<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}"
+					style="width: 200px;" />
+				<div class="user-block-contacts">
+					<b>Нет контактов.</b><br />
+				</div>
+			</p:panel>
+			<p:panel rendered="#{usersBean.isExistContacts(usersBean.showUser)}"
+				style="float:left;"
+				header="#{usersBean.showUser.contacts.firstname} #{usersBean.showUser.contacts.nickname} #{usersBean.showUser.contacts.lastname} (#{usersBean.showUser.username})">
+				<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}" style="width: 200px;" />
+				<div class="user-block-contacts">
+					<ul class="user-contacts-parameters">
+						<li><b>Пол:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.genders[usersBean.showUser.contacts.gender]}" /></li>
+						<li><b>Дата рождения:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.showUser.contacts.birthday}">
+								<f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputText></li>
+						<li><b>Адрес:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.showUser.contacts.address}" /></li>
+						<li><b>Телефон:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.showUser.contacts.phone}" /></li>
+						<li><b>E-mail:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.showUser.contacts.email}" /></li>
+						<li><b>Сайт:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.showUser.contacts.website}" /></li>
+						<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.showUser.contacts.about}" /></li>
+					</ul>
+				</div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

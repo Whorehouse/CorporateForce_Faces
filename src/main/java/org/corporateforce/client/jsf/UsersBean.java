@@ -1,5 +1,6 @@
 package org.corporateforce.client.jsf;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,5 +165,23 @@ public class UsersBean {
     	} else {
     		return Config.getUriServer()+"resources/images/img_no_photo.png";
     	}
+    }
+    
+    public String getAvatar(Users u) {
+    	if (isExistAvatar(u)) {
+    		return Config.getUriServer()+"Avatars/showAvatar/"+u.getContacts().getAvatars().getId();
+    	} else {
+    		return Config.getUriServer()+"resources/images/img_no_photo.png";
+    	}
+    }
+    
+    public List<Users> listExludeCurrentUsers() {
+    	List<Users> res = null;
+    	try {
+        	res = usersPort.listExclude(currentUser.getId());        	
+    	} catch (Exception e) {
+    		res = new ArrayList<Users>();
+    	}
+    	return res;
     }
 }

@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<h:form rendered="#{usersBean.isSignedIn()}">
-		<p:megaMenu class="user-left-menu" orientation="vertical">
+		<p:megaMenu class="user-left-menu" orientation="vertical" rendered="#{usersBean.isSignedIn()}">
 			<p:menuitem value="Моя страница" action="welcome" ajax="false"
 				icon="ui-icon-person" />
 			<p:menuitem value="Мои контакты" action="contacts_saveoredit"
@@ -16,6 +16,13 @@
 					value="#{usersBean.currentUser.contacts}"
 					target="#{contactsBean.currentContacts}" />
 			</p:menuitem>
+			<p:menuitem rendered="#{usersBean.currentUser.users!=null}" value="Мой начальник" action="users_show" ajax="false"
+				icon="ui-icon-star">
+				<f:setPropertyActionListener
+					value="#{usersBean.currentUser.users}"
+					target="#{usersBean.showUser}" />
+			</p:menuitem>
+			<p:menuitem value="Мой коллеги" action="users_list" ajax="false" icon="ui-icon-shuffle" />			
 		</p:megaMenu>
 	</h:form>
 </ui:composition>
