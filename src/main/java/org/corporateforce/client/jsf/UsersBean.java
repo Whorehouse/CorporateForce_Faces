@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 public class UsersBean {
 
 	private Users currentUser;
+	private Users showUser;
 	
 	@Autowired
 	private MainBean mainBean;	
@@ -30,6 +31,14 @@ public class UsersBean {
 	@Autowired
 	private ContactsPort contactsPort;
 	
+	public Users getShowUser() {
+		return showUser;
+	}
+
+	public void setShowUser(Users showUser) {
+		this.showUser = showUser;
+	}
+
 	public Users getCurrentUser() {
 		return currentUser;
 	}

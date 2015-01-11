@@ -6,42 +6,53 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	template="/view/templates/default.xhtml">
+	template="/view/templates/faces.xhtml">
 	<ui:define name="body">
-		<h:form>
-			<p:outputPanel>
-				<div class="page-container">
-					<p:panel id="mypersone-page" autoUpdate="true" header="Контакты" styleClass="page-block">
-						<p:panelGrid columns="2">
-							<h:outputLabel for="user-firstname" value="Имя: " />
-							<p:inputText id="user-firstname" class="user-firstname" label="firstname" value="#{contactsBean.currentContacts.firstname}"/>
-							<h:outputLabel for="user-nickname" value="Ник: " />
-							<p:inputText id="user-nickname" class="user-nickname" label="nickname" value="#{contactsBean.currentContacts.nickname}"/>							
-							<h:outputLabel for="user-lastname" value="Фамилия: " />
-							<p:inputText id="user-lastname" class="user-lastname" label="lastname" value="#{contactsBean.currentContacts.lastname}"/>							
-							<p:outputLabel for="user-gender" value="Пол: " />
-							<p:selectOneMenu id="user-gender" value="#{contactsBean.currentContacts.gender}" style="width:125px">
-					            <f:selectItems value="#{usersBean.invertMap(usersBean.genders)}" />
-					        </p:selectOneMenu>
-							<p:outputLabel for="user-birthday" value="День рождения:" />
-					        <p:calendar id="user-birthday"  value="#{contactsBean.currentContacts.birthday}" mode="inline" />
-							<h:outputLabel for="user-address" value="Адрес: " />
-							<p:inputText id="user-address" class="user-address" label="address" value="#{contactsBean.currentContacts.address}"/>
-							<h:outputLabel for="user-phone" value="Телефон: " />
-							<p:inputText id="user-phone" class="user-phone" label="phone" value="#{contactsBean.currentContacts.phone}"/>
-							<h:outputLabel for="user-email" value="E-mail: " />
-							<p:inputText id="user-email" class="user-email" label="email" value="#{contactsBean.currentContacts.email}"/>
-							<h:outputLabel for="user-website" value="Сайт: " />
-							<p:inputText id="user-website" class="user-website" label="website" value="#{contactsBean.currentContacts.website}"/>							
-							<h:outputLabel for="user-about" value="О себе: " />
-							<p:inputText id="user-about" class="user-about" label="about" value="#{contactsBean.currentContacts.about}"/>							
-							<p:commandButton rendered="#{contactsBean.currentContacts.id gt 0}" value="Редактировать" action="#{contactsBean.edit()}" />
-							<p:commandButton rendered="#{usersBean.currentUser.contacts eq null}" value="Создать" action="#{contactsBean.save()}" />
-						</p:panelGrid>				
-						<div style="float:none;clear:both;"></div>
-					</p:panel>
-				</div>
-			</p:outputPanel>		
+		<h:form style="float:left; margin-top:0;">
+			<p:panel id="mypersone-page" autoUpdate="true" header="Контакты"
+				styleClass="page-block">
+				<p:panelGrid columns="2">
+					<h:outputLabel for="user-firstname" value="Имя: " />
+					<p:inputText id="user-firstname" class="user-firstname"
+						label="firstname"
+						value="#{contactsBean.currentContacts.firstname}" />
+					<h:outputLabel for="user-nickname" value="Ник: " />
+					<p:inputText id="user-nickname" class="user-nickname"
+						label="nickname" value="#{contactsBean.currentContacts.nickname}" />
+					<h:outputLabel for="user-lastname" value="Фамилия: " />
+					<p:inputText id="user-lastname" class="user-lastname"
+						label="lastname" value="#{contactsBean.currentContacts.lastname}" />
+					<p:outputLabel for="user-gender" value="Пол: " />
+					<p:selectOneMenu id="user-gender"
+						value="#{contactsBean.currentContacts.gender}" style="width:125px">
+						<f:selectItems value="#{usersBean.invertMap(usersBean.genders)}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="user-birthday" value="День рождения:" />
+					<p:calendar id="user-birthday"
+						value="#{contactsBean.currentContacts.birthday}" mode="inline" />
+					<h:outputLabel for="user-address" value="Адрес: " />
+					<p:inputText id="user-address" class="user-address" label="address"
+						value="#{contactsBean.currentContacts.address}" />
+					<h:outputLabel for="user-phone" value="Телефон: " />
+					<p:inputText id="user-phone" class="user-phone" label="phone"
+						value="#{contactsBean.currentContacts.phone}" />
+					<h:outputLabel for="user-email" value="E-mail: " />
+					<p:inputText id="user-email" class="user-email" label="email"
+						value="#{contactsBean.currentContacts.email}" />
+					<h:outputLabel for="user-website" value="Сайт: " />
+					<p:inputText id="user-website" class="user-website" label="website"
+						value="#{contactsBean.currentContacts.website}" />
+					<h:outputLabel for="user-about" value="О себе: " />
+					<p:inputText id="user-about" class="user-about" label="about"
+						value="#{contactsBean.currentContacts.about}" />
+				</p:panelGrid>
+				<p:commandButton rendered="#{contactsBean.currentContacts.id gt 0}"
+					value="Редактировать" action="#{contactsBean.edit()}" />
+				<p:commandButton
+					rendered="#{usersBean.currentUser.contacts eq null}"
+					value="Создать" action="#{contactsBean.save()}" />
+				<div style="float: none; clear: both;"></div>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>

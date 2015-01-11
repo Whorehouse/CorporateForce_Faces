@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<h:form rendered="#{usersBean.isSignedIn()}">
+		<p:megaMenu class="user-left-menu" orientation="vertical">
+			<p:menuitem value="Моя страница" action="welcome" ajax="false"
+				icon="ui-icon-person" />
+			<p:menuitem value="Мои контакты" action="contacts_saveoredit"
+				ajax="false" icon="ui-icon-note">
+				<f:setPropertyActionListener
+					value="#{usersBean.currentUser.contacts}"
+					target="#{contactsBean.currentContacts}" />
+			</p:menuitem>
+		</p:megaMenu>
+	</h:form>
+</ui:composition>

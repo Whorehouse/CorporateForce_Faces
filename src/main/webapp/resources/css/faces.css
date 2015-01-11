@@ -18,3 +18,18 @@
 	color: rgb(120, 120, 120);
 	margin-top: 0;
 }
+
+.page-block.mypersone-page .user-left-menu {
+	position:relative;
+	padding-left:15px;
+	width:70px; 
+	float:left; 
+	margin-right: 15px;
+	height: auto;
+	box-shadow: none;
+}
+
+.page-container form {
+	margin-top:0;
+	margin-bottom:0;
+}

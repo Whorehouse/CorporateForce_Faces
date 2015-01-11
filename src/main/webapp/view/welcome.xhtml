@@ -6,80 +6,72 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	template="/view/templates/default.xhtml">
+	template="/view/templates/faces.xhtml">
 	<ui:define name="body">
 		<h:form>
-			<p:outputPanel rendered="#{!usersBean.isSignedIn()}">
-				<div class="page-container">
-					<p:panel header="Лица" styleClass="page-block">
-						<img class="welcome-item-left"
-							src="resources/images/img_faces.png"></img>
-						<div class="welcome-text-big welcome-item-left">
-							Все сотрудники в одном месте
-							<ul class="welcome-features-list">
-								<li>Быстрый доступ к списку сотрудников</li>
-								<li>Иерархия организации в простой форме</li>
-								<li>Быстрый доступ ко всем контактам</li>
-								<li>Загрузка документов и фото</li>
-								<li>Создание объявлений для всех сотрудников</li>
-								<li>Расписание отпусков</li>
-							</ul>
-						</div>
-						<div style="float:none;clear:both;"></div>
-					</p:panel>
+			<p:panel styleClass="page-block" rendered="#{!usersBean.isSignedIn()}">
+				<img class="welcome-item-left" src="resources/images/img_faces.png"></img>
+				<div class="welcome-text-big welcome-item-left">
+					Все сотрудники в одном месте
+					<ul class="welcome-features-list">
+						<li>Быстрый доступ к списку сотрудников</li>
+						<li>Иерархия организации в простой форме</li>
+						<li>Быстрый доступ ко всем контактам</li>
+						<li>Загрузка документов и фото</li>
+						<li>Создание объявлений для всех сотрудников</li>
+						<li>Расписание отпусков</li>
+					</ul>
 				</div>
-			</p:outputPanel>
-			<p:outputPanel rendered="#{usersBean.isSignedIn() and (not usersBean.isExistContacts())}" styleClass="page-container">
-				<div class="page-container">
-					<p:panel autoUpdate="true" header="#{usersBean.currentUser.username}" styleClass="page-block mypersone-page">
-						<img class="user-avatar" src="#{usersBean.getAvatar()}" style="width:200px;"/>
-						<div class="user-block-contacts">
-							<b>Нет контактов.</b><br/>							
-							<p:commandButton value="Создать" action="contacts_saveoredit" />
-						</div>
-						<div style="float:none;clear:both;"></div>
-					</p:panel>
-				</div>	
-			</p:outputPanel>
-			<p:outputPanel rendered="#{usersBean.isExistContacts()}">
-				<div class="page-container">
-					<p:panel autoUpdate="true" header="#{usersBean.currentUser.contacts.firstname} #{usersBean.currentUser.contacts.nickname} #{usersBean.currentUser.contacts.lastname} (#{usersBean.currentUser.username})" styleClass="page-block mypersone-page">
-						<img class="user-avatar" src="#{usersBean.getAvatar()}" onclick="PF('popupUploadImage').show();" style="width:200px;"/>
-						<div class="user-block-contacts">
-							<ul class="user-contacts-parameters">
-								<li><b>Пол:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.genders[usersBean.currentUser.contacts.gender]}" /></li>
-								<li><b>Дата рождения:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.birthday}"><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText></li>
-								<li><b>Адрес:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.address}" /></li>
-								<li><b>Телефон:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.phone}" /></li>
-								<li><b>E-mail:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.email}" /></li>
-								<li><b>Сайт:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.website}" /></li>								
-								<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.about}" /></li>
-							</ul>
-						</div>
-						<p:commandButton value="✎" action="contacts_saveoredit">
-							<f:setPropertyActionListener value="#{usersBean.currentUser.contacts}" target="#{contactsBean.currentContacts}" />
-						</p:commandButton>
-						<div style="float:none;clear:both;"></div>
-					</p:panel>
-				</div>				
+				<div style="float: none; clear: both;"></div>
+			</p:panel>
+			<p:panel
+				rendered="#{usersBean.isSignedIn() and (not usersBean.isExistContacts())}"
+				header="#{usersBean.currentUser.username}"
+				styleClass="page-block mypersone-page">
+				<img class="user-avatar" src="#{usersBean.getAvatar()}"
+					style="width: 200px;" />
+				<div class="user-block-contacts">
+					<b>Нет контактов.</b><br />
+					<p:commandButton value="Создать" action="contacts_saveoredit" />
+				</div>
+			</p:panel>
+			<p:panel rendered="#{usersBean.isExistContacts()}"
+				style="float:left;"
+				header="#{usersBean.currentUser.contacts.firstname} #{usersBean.currentUser.contacts.nickname} #{usersBean.currentUser.contacts.lastname} (#{usersBean.currentUser.username})">
+				<img class="user-avatar" src="#{usersBean.getAvatar()}"
+					onclick="PF('popupUploadImage').show();" style="width: 200px;" />
+				<div class="user-block-contacts">
+					<ul class="user-contacts-parameters">
+						<li><b>Пол:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.genders[usersBean.currentUser.contacts.gender]}" /></li>
+						<li><b>Дата рождения:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.currentUser.contacts.birthday}">
+								<f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputText></li>
+						<li><b>Адрес:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.currentUser.contacts.address}" /></li>
+						<li><b>Телефон:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.currentUser.contacts.phone}" /></li>
+						<li><b>E-mail:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.currentUser.contacts.email}" /></li>
+						<li><b>Сайт:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.currentUser.contacts.website}" /></li>
+						<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText
+								value="#{usersBean.currentUser.contacts.about}" /></li>
+					</ul>
+				</div>
 				<!-- Popup for image download -->
-				<p:dialog header="Загрузка изображения" widgetVar="popupUploadImage" modal="true" width="750" height="200">
-				    <h:form>
-				    	<p:fileUpload 
-				    		fileUploadListener="#{usersBean.uploadImage}" 
-				    		mode="advanced" 
-				    		dragDropSupport="false"
-           					ajax="false" 
-           					sizeLimit="1000000" 
-           					fileLimit="1" 
-           					allowTypes="/(\.|\/)(jpe?g|png)$/" 
-           					uploadLabel="Загрузить"
-           					cancelLabel="Отменить"
-           					label="Выбрать"
-           				/>
-				    </h:form>
-				</p:dialog> 
-			</p:outputPanel>
+				<p:dialog header="Загрузка изображения" widgetVar="popupUploadImage"
+					modal="true" width="750" height="200">
+					<h:form>
+						<p:fileUpload fileUploadListener="#{usersBean.uploadImage}"
+							mode="advanced" dragDropSupport="false" ajax="false"
+							sizeLimit="1000000" fileLimit="1"
+							allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Загрузить"
+							cancelLabel="Отменить" label="Выбрать" />
+					</h:form>
+				</p:dialog>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>
