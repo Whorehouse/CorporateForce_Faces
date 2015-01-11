@@ -21,8 +21,7 @@
 							<p:inputText id="user-lastname" class="user-lastname" label="lastname" value="#{contactsBean.currentContacts.lastname}"/>							
 							<p:outputLabel for="user-gender" value="Пол: " />
 							<p:selectOneMenu id="user-gender" value="#{contactsBean.currentContacts.gender}" style="width:125px">
-					            <f:selectItem itemLabel="Мужской" itemValue="male" />
-					            <f:selectItem itemLabel="Женский" itemValue="female" />
+					            <f:selectItems value="#{usersBean.invertMap(usersBean.genders)}" />
 					        </p:selectOneMenu>
 							<p:outputLabel for="user-birthday" value="День рождения:" />
 					        <p:calendar id="user-birthday"  value="#{contactsBean.currentContacts.birthday}" mode="inline" />
@@ -33,7 +32,9 @@
 							<h:outputLabel for="user-email" value="E-mail: " />
 							<p:inputText id="user-email" class="user-email" label="email" value="#{contactsBean.currentContacts.email}"/>
 							<h:outputLabel for="user-website" value="Сайт: " />
-							<p:inputText id="user-website" class="user-website" label="website" value="#{contactsBean.currentContacts.website}"/>
+							<p:inputText id="user-website" class="user-website" label="website" value="#{contactsBean.currentContacts.website}"/>							
+							<h:outputLabel for="user-about" value="О себе: " />
+							<p:inputText id="user-about" class="user-about" label="about" value="#{contactsBean.currentContacts.about}"/>
 							<p:commandButton value="Редактировать" action="#{contactsBean.edit()}" />
 						</p:panelGrid>				
 						<div style="float:none;clear:both;"></div>

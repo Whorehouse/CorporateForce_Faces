@@ -10,3 +10,11 @@
 	padding-left: 15px;
 	padding-right: 15px;
 }
+
+.user-contacts-parameters {
+	list-style: none;
+	line-height: 1.4em;
+	font-size:medium;
+	color: rgb(120, 120, 120);
+	margin-top: 0;
+}

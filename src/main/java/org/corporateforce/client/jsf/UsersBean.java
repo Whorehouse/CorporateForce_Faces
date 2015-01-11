@@ -1,6 +1,9 @@
 package org.corporateforce.client.jsf;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.faces.context.FacesContext;
 
@@ -29,6 +32,21 @@ public class UsersBean {
 	
 	public Users getCurrentUser() {
 		return currentUser;
+	}
+	
+	public Map<String, String> getGenders() {
+		Map<String, String> genders= new HashMap<String, String>();
+		genders.put("male", "Мужской");
+		genders.put("female", "Женский");
+		return genders;
+	}
+	
+	public Map<String, String> invertMap(Map<String, String> map) {
+		Map<String, String> newMap= new HashMap<String, String>();
+		for (Entry<String, String> entry : map.entrySet()) {
+			newMap.put(entry.getValue(), entry.getKey());
+		}
+		return newMap;
 	}
 
 	public void setCurrentUser(Users currentUser) {

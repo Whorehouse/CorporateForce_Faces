@@ -37,13 +37,14 @@
 					<p:panel id="mypersone-page" autoUpdate="true" header="#{usersBean.currentUser.contacts.firstname} #{usersBean.currentUser.contacts.nickname} #{usersBean.currentUser.contacts.lastname} (#{usersBean.currentUser.username})" styleClass="page-block">
 						<img id="user-avatar" src="#{usersBean.getAvatar()}" onclick="PF('popupUploadImage').show();" style="width:200px;"/>
 						<div id="user-block-contacts">
-							<ul class="welcome-features-list">
-								<li><b>Пол:</b> <h:outputText value="#{usersBean.currentUser.contacts.gender}" /></li>
-								<li><b>Дата рождения:</b> <h:outputText value="#{usersBean.currentUser.contacts.birthday}"><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText></li>
-								<li><b>Адрес:</b> <h:outputText value="#{usersBean.currentUser.contacts.address}" /></li>
-								<li><b>Телефон:</b> <h:outputText value="#{usersBean.currentUser.contacts.phone}" /></li>
-								<li><b>E-mail:</b> <h:outputText value="#{usersBean.currentUser.contacts.email}" /></li>
-								<li><b>Сайт:</b> <h:outputText value="#{usersBean.currentUser.contacts.website}" /></li>
+							<ul class="user-contacts-parameters">
+								<li><b>Пол:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.genders[usersBean.currentUser.contacts.gender]}" /></li>
+								<li><b>Дата рождения:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.birthday}"><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText></li>
+								<li><b>Адрес:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.address}" /></li>
+								<li><b>Телефон:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.phone}" /></li>
+								<li><b>E-mail:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.email}" /></li>
+								<li><b>Сайт:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.website}" /></li>								
+								<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.about}" /></li>
 							</ul>
 						</div>
 						<p:commandButton value="✎" action="contacts_edit">
