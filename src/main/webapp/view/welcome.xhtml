@@ -30,13 +30,22 @@
 				</div>
 			</p:outputPanel>
 			<p:outputPanel rendered="#{usersBean.isSignedIn() and (not usersBean.isExistContacts())}" styleClass="page-container">
-				<h1>Контактов нет, но юзер залогинен</h1>
+				<div class="page-container">
+					<p:panel autoUpdate="true" header="#{usersBean.currentUser.username}" styleClass="page-block mypersone-page">
+						<img class="user-avatar" src="#{usersBean.getAvatar()}" style="width:200px;"/>
+						<div class="user-block-contacts">
+							<b>Нет контактов.</b><br/>							
+							<p:commandButton value="Создать" action="contacts_saveoredit" />
+						</div>
+						<div style="float:none;clear:both;"></div>
+					</p:panel>
+				</div>	
 			</p:outputPanel>
 			<p:outputPanel rendered="#{usersBean.isExistContacts()}">
 				<div class="page-container">
-					<p:panel id="mypersone-page" autoUpdate="true" header="#{usersBean.currentUser.contacts.firstname} #{usersBean.currentUser.contacts.nickname} #{usersBean.currentUser.contacts.lastname} (#{usersBean.currentUser.username})" styleClass="page-block">
-						<img id="user-avatar" src="#{usersBean.getAvatar()}" onclick="PF('popupUploadImage').show();" style="width:200px;"/>
-						<div id="user-block-contacts">
+					<p:panel autoUpdate="true" header="#{usersBean.currentUser.contacts.firstname} #{usersBean.currentUser.contacts.nickname} #{usersBean.currentUser.contacts.lastname} (#{usersBean.currentUser.username})" styleClass="page-block mypersone-page">
+						<img class="user-avatar" src="#{usersBean.getAvatar()}" onclick="PF('popupUploadImage').show();" style="width:200px;"/>
+						<div class="user-block-contacts">
 							<ul class="user-contacts-parameters">
 								<li><b>Пол:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.genders[usersBean.currentUser.contacts.gender]}" /></li>
 								<li><b>Дата рождения:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.birthday}"><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText></li>
@@ -47,7 +56,7 @@
 								<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText value="#{usersBean.currentUser.contacts.about}" /></li>
 							</ul>
 						</div>
-						<p:commandButton value="✎" action="contacts_edit">
+						<p:commandButton value="✎" action="contacts_saveoredit">
 							<f:setPropertyActionListener value="#{usersBean.currentUser.contacts}" target="#{contactsBean.currentContacts}" />
 						</p:commandButton>
 						<div style="float:none;clear:both;"></div>

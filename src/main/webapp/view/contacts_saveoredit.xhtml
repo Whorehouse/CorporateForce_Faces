@@ -9,9 +9,9 @@
 	template="/view/templates/default.xhtml">
 	<ui:define name="body">
 		<h:form>
-			<p:outputPanel rendered="#{usersBean.isExistContacts()}">
+			<p:outputPanel>
 				<div class="page-container">
-					<p:panel id="mypersone-page" autoUpdate="true" header="Редактирование контактов" styleClass="page-block">
+					<p:panel id="mypersone-page" autoUpdate="true" header="Контакты" styleClass="page-block">
 						<p:panelGrid columns="2">
 							<h:outputLabel for="user-firstname" value="Имя: " />
 							<p:inputText id="user-firstname" class="user-firstname" label="firstname" value="#{contactsBean.currentContacts.firstname}"/>
@@ -34,8 +34,9 @@
 							<h:outputLabel for="user-website" value="Сайт: " />
 							<p:inputText id="user-website" class="user-website" label="website" value="#{contactsBean.currentContacts.website}"/>							
 							<h:outputLabel for="user-about" value="О себе: " />
-							<p:inputText id="user-about" class="user-about" label="about" value="#{contactsBean.currentContacts.about}"/>
-							<p:commandButton value="Редактировать" action="#{contactsBean.edit()}" />
+							<p:inputText id="user-about" class="user-about" label="about" value="#{contactsBean.currentContacts.about}"/>							
+							<p:commandButton rendered="#{contactsBean.currentContacts.id gt 0}" value="Редактировать" action="#{contactsBean.edit()}" />
+							<p:commandButton rendered="#{usersBean.currentUser.contacts eq null}" value="Создать" action="#{contactsBean.save()}" />
 						</p:panelGrid>				
 						<div style="float:none;clear:both;"></div>
 					</p:panel>
