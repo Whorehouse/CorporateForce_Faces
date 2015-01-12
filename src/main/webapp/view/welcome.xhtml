@@ -9,7 +9,8 @@
 	template="/view/templates/faces.xhtml">
 	<ui:define name="body">
 		<h:form>
-			<p:panel styleClass="page-block" rendered="#{!usersBean.isSignedIn()}">
+			<p:panel styleClass="page-block"
+				rendered="#{!usersBean.isSignedIn()}">
 				<img class="welcome-item-left" src="resources/images/img_faces.png"></img>
 				<div class="welcome-text-big welcome-item-left">
 					Все сотрудники в одном месте
@@ -24,40 +25,23 @@
 				</div>
 				<div style="float: none; clear: both;"></div>
 			</p:panel>
-			<p:panel
-				rendered="#{usersBean.isSignedIn() and (not usersBean.isExistContacts())}"
-				header="#{usersBean.currentUser.username}"
+			<p:panel rendered="#{usersBean.isSignedIn()}"
+				header="#{usersBean.getFullname()}"
 				styleClass="page-block mypersone-page">
-				<img class="user-avatar" src="#{usersBean.getAvatar()}"
-					style="width: 200px;" />
-				<div class="user-block-contacts">
-					<b>Нет контактов.</b><br />
-					<p:commandButton value="Создать" action="contacts_saveoredit" />
-				</div>
-				<p:panel styleClass="user-chatter-block" header="Стена">
-					<c:forEach var="chatter" items="#{chatterBean.listForParent(usersBean.currentUser)}">
-						<div class="user-chatter-element">
-							<h:outputText
-								styleClass="chatter-created"
-								value="#{chatter.created}">
-								<f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss" />
-							</h:outputText>
-							<div class="chatter-creator">#{chatter.usersByCreator.username}</div>
-							<div class="chatter-body">#{chatter.body}</div>
-						</div>
-					</c:forEach>
-					<p:panel styleClass="chatter-input-panel">
-						<p:inputTextarea value="#{chatterBean.newChatter.body}"></p:inputTextarea>
-						<p:commandButton value="Отправить" action="#{chatterBean.createChatter(true)}" />
-					</p:panel>
-				</p:panel>
-			</p:panel>
-			<p:panel rendered="#{usersBean.isExistContacts()}"
-				style="float:left;"
-				header="#{usersBean.currentUser.contacts.firstname} #{usersBean.currentUser.contacts.nickname} #{usersBean.currentUser.contacts.lastname} (#{usersBean.currentUser.username})">
-				<img class="user-avatar" src="#{usersBean.getAvatar()}"
-					onclick="PF('popupUploadImage').show();" style="width: 200px;" />
-				<div class="user-block-contacts">
+								
+				<!-- Аватар -->
+				<c:if test="#{!usersBean.isExistContacts()}">
+					<img class="user-avatar" src="#{usersBean.getAvatar()}"
+						style="width: 200px;" />
+				</c:if>
+				<c:if test="#{usersBean.isExistContacts()}">
+					<img class="user-avatar" src="#{usersBean.getAvatar()}"
+						onclick="PF('popupUploadImage').show();" style="width: 200px;" />
+				</c:if>
+				
+				<!-- Контакты -->
+				<p:panel styleClass="user-contacts-block"
+					rendered="#{usersBean.isExistContacts()}">
 					<ul class="user-contacts-parameters">
 						<li><b>Пол:</b>&nbsp;&nbsp;&nbsp;<h:outputText
 								value="#{usersBean.genders[usersBean.currentUser.contacts.gender]}" /></li>
@@ -76,25 +60,43 @@
 						<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText
 								value="#{usersBean.currentUser.contacts.about}" /></li>
 					</ul>
-				</div>				
+				</p:panel>
+				<p:panel styleClass="user-contacts-block"
+					rendered="#{!usersBean.isExistContacts()}">
+					<b>Нет контактов.</b>
+					<br />
+					<p:commandButton value="Создать" action="contacts_saveoredit" />
+				</p:panel>
+				
+				<!-- Стена -->
 				<p:panel styleClass="user-chatter-block" header="Стена">
-					<c:forEach var="chatter" items="#{chatterBean.listForParent(usersBean.currentUser)}">
-						<div class="user-chatter-element">
-							<h:outputText
-								styleClass="chatter-created"
-								value="#{chatter.created}">
-								<f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss" />
-							</h:outputText>
-							<div class="chatter-creator">#{chatter.usersByCreator.username}</div>
-							<div class="chatter-body">#{chatter.body}</div>
-						</div>
-					</c:forEach>
+					<p:outputPanel id="user-chatter-update"
+						styleClass="user-chatter-elements">
+						<c:forEach var="chatter"
+							items="#{chatterBean.listForParent(usersBean.currentUser)}">
+							<div class="user-chatter-element #{chatter.usersByParent.id==chatter.usersByCreator.id ? 'user-chatter-element-self' : 'user-chatter-element-notself'}">
+								<div class="chatter-element-header">
+									<div class="chatter-creator">#{chatter.usersByCreator.username} </div>
+									(<h:outputText styleClass="chatter-created"
+										value="#{chatter.created}">
+										<f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss" />
+									</h:outputText>)
+									<p:commandButton rendered="#{chatter.usersByParent.id==usersBean.currentUser.id}" action="#{chatterBean.deleteChatter(chatter)}" update="@([id$=user-chatter-update])" icon="ui-icon-circle-minus"/>
+								</div>									
+								<div class="chatter-element-body">#{chatter.body}</div>
+							</div>
+							<div style="clear: both; float: none;"></div>
+						</c:forEach>
+					</p:outputPanel>
 					<p:panel styleClass="chatter-input-panel">
 						<p:inputTextarea value="#{chatterBean.newChatter.body}"></p:inputTextarea>
-						<p:commandButton value="Отправить" action="#{chatterBean.createChatter(true)}" />
+						<p:commandButton value="Отправить"
+							action="#{chatterBean.createChatter(true)}"
+							update="@([id$=user-chatter-update])" />
 					</p:panel>
 				</p:panel>
-				<!-- Popup for image download -->
+				
+				<!-- Загрузка картинки -->
 				<p:dialog header="Загрузка изображения" widgetVar="popupUploadImage"
 					modal="true" width="750" height="200">
 					<h:form>
@@ -106,6 +108,7 @@
 					</h:form>
 				</p:dialog>
 			</p:panel>
+			<div style="clear: both; float: none;"></div>
 		</h:form>
 	</ui:define>
 </ui:composition>

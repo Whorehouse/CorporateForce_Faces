@@ -1,14 +1,19 @@
 @CHARSET "UTF-8";
 
+.mypersone-page {
+	float:left;
+}
+
 .user-avatar {
 	float:left;
 	width:200px;
 }
 
-.user-block-contacts {
+.user-contacts-block {
 	float: left;
 	padding-left: 15px;
 	padding-right: 15px;
+	margin:0 10px;
 }
 
 .user-contacts-parameters {
@@ -17,9 +22,10 @@
 	font-size:medium;
 	color: rgb(120, 120, 120);
 	margin-top: 0;
+	padding-left: 5px;
 }
 
-.page-block.mypersone-page .user-left-menu {
+.page-block .user-left-menu {
 	position:relative;
 	padding-left:15px;
 	width:70px; 
@@ -61,4 +67,86 @@
 	top:10px;
 	width: 40px;
 	height:40px;
+}
+
+.user-chatter-block {
+	float:left;
+	width:500px;
+}
+
+.user-chatter-elements {
+	position:relative;
+	width:100%;
+}
+
+
+.user-chatter-elements .user-chatter-element {		
+	position:relative;
+	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+	background-repeat: repeat-x;
+	border: 1px solid #d4d4d4;
+	width:65%;
+	margin:3px;
+	padding:3px;
+}
+.user-chatter-element .chatter-element-header {
+	position:relative;
+	margin:3px;	
+	background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
+	background-repeat: repeat-x;
+	border: 1px solid #d4d4d4;
+}
+
+.user-chatter-element .chatter-element-header .chatter-creator {
+	font-weight: bold;
+	display:inline-block;
+	line-height:28px;
+	padding-left:8px;
+}
+
+.user-chatter-element .chatter-element-header .chatter-created {
+	
+}
+
+.user-chatter-element .chatter-element-header button {
+	position:absolute;
+	right:3px;
+	top:3px;
+	height:20px;
+	width:20px;
+	color:red;
+}
+
+.user-chatter-element .chatter-element-body {
+	position:relative;
+	margin-top:7px;
+	margin-left:3px;
+	margin-bottom:4px;
+	width:98%;
+}
+
+.user-chatter-element.user-chatter-element-self {
+	float:right;
+	background-image: linear-gradient(to bottom, #ffffff, #DCE5EF) !important;
+}
+
+.user-chatter-element.user-chatter-element-notself {
+	float:left;
+	background-image: linear-gradient(to bottom, #ffffff, #BECCDA) !important;
+}
+
+.user-chatter-block .chatter-input-panel {
+	margin-top:20px;
+	position:relative;
+	width:99%;
+}
+
+.user-chatter-block .chatter-input-panel textarea {
+	position:relative;
+	width:100%;	
+	margin-bottom:10px;
+}
+
+.user-chatter-block .chatter-input-panel button {
+	width:100%;
 }

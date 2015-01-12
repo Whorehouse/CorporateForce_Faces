@@ -158,6 +158,18 @@ public class UsersBean {
 	public boolean isExistAvatar(Users u) {
 		return (isExistContacts(u)&&u.getContacts().getAvatars()!=null) ? true : false;
 	}
+	
+	public String getFullname(Users u) {
+		if (u.getContacts()!=null) {
+			return u.getContacts().getFirstname()+" "+u.getContacts().getNickname()+" "+u.getContacts().getLastname()+" ("+u.getUsername()+")";
+		} else {
+			return u.getUsername();
+		}
+	}
+	
+	public String getFullname() {
+		return getFullname(currentUser);
+	}
     
     public String getAvatar() {
     	if (isExistAvatar()) {

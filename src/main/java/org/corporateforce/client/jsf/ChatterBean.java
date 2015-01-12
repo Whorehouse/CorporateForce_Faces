@@ -59,4 +59,8 @@ public class ChatterBean {
 		chatterPort.add(newChatter);
 		newChatter = new Chatter();
 	}
+	
+	public void deleteChatter(Chatter chatter) {
+		chatterPort.delete(chatter.getId());
+	}
 }

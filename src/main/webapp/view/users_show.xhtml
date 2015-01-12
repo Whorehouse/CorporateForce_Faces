@@ -9,22 +9,23 @@
 	template="/view/templates/faces.xhtml">
 	<ui:define name="body">
 		<h:form>
-			<p:panel
-				rendered="#{!usersBean.isExistContacts(usersBean.showUser)}"
-				style="float:left;"
-				header="#{usersBean.showUser.username}"
+			<p:panel rendered="#{usersBean.isSignedIn()}"
+				header="#{usersBean.getFullname(usersBean.showUser)}"
 				styleClass="page-block mypersone-page">
-				<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}"
-					style="width: 200px;" />
-				<div class="user-block-contacts">
-					<b>Нет контактов.</b><br />
-				</div>
-			</p:panel>
-			<p:panel rendered="#{usersBean.isExistContacts(usersBean.showUser)}"
-				style="float:left;"
-				header="#{usersBean.showUser.contacts.firstname} #{usersBean.showUser.contacts.nickname} #{usersBean.showUser.contacts.lastname} (#{usersBean.showUser.username})">
-				<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}" style="width: 200px;" />
-				<div class="user-block-contacts">
+								
+				<!-- Аватар -->
+				<c:if test="#{!usersBean.isExistContacts(usersBean.showUser)}">
+					<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}"
+						style="width: 200px;" />
+				</c:if>
+				<c:if test="#{usersBean.isExistContacts(usersBean.showUser)}">
+					<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}"
+						onclick="PF('popupUploadImage').show();" style="width: 200px;" />
+				</c:if>
+				
+				<!-- Контакты -->
+				<p:panel styleClass="user-contacts-block"
+					rendered="#{usersBean.isExistContacts(usersBean.showUser)}">
 					<ul class="user-contacts-parameters">
 						<li><b>Пол:</b>&nbsp;&nbsp;&nbsp;<h:outputText
 								value="#{usersBean.genders[usersBean.showUser.contacts.gender]}" /></li>
@@ -43,25 +44,41 @@
 						<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText
 								value="#{usersBean.showUser.contacts.about}" /></li>
 					</ul>
-				</div>				
+				</p:panel>
+				<p:panel styleClass="user-contacts-block"
+					rendered="#{!usersBean.isExistContacts(usersBean.showUser)}">
+					<b>Нет контактов.</b>
+				</p:panel>
+				
+				<!-- Стена -->
 				<p:panel styleClass="user-chatter-block" header="Стена">
-					<c:forEach var="chatter" items="#{chatterBean.listForParent(usersBean.showUser)}">
-						<div class="user-chatter-element">
-							<h:outputText
-								styleClass="chatter-created"
-								value="#{chatter.created}">
-								<f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss" />
-							</h:outputText>
-							<div class="chatter-creator">#{chatter.usersByCreator.username}</div>
-							<div class="chatter-body">#{chatter.body}</div>
-						</div>
-					</c:forEach>
+					<p:outputPanel id="user-chatter-update"
+						styleClass="user-chatter-elements">
+						<c:forEach var="chatter"
+							items="#{chatterBean.listForParent(usersBean.showUser)}">
+							<div class="user-chatter-element #{chatter.usersByCreator.id==usersBean.currentUser.id ? 'user-chatter-element-self' : 'user-chatter-element-notself'}">
+								<div class="chatter-element-header">
+									<div class="chatter-creator">#{chatter.usersByCreator.username} </div>
+									(<h:outputText styleClass="chatter-created"
+										value="#{chatter.created}">
+										<f:convertDateTime pattern="dd.MM.yyyy hh:mm:ss" />
+									</h:outputText>)
+									<p:commandButton rendered="#{chatter.usersByParent.id==usersBean.currentUser.id}" action="#{chatterBean.deleteChatter(chatter)}" update="@([id$=user-chatter-update])" icon="ui-icon-circle-minus"/>
+								</div>									
+								<div class="chatter-element-body">#{chatter.body}</div>
+							</div>
+							<div style="clear: both; float: none;"></div>
+						</c:forEach>
+					</p:outputPanel>
 					<p:panel styleClass="chatter-input-panel">
 						<p:inputTextarea value="#{chatterBean.newChatter.body}"></p:inputTextarea>
-						<p:commandButton value="Отправить" action="#{chatterBean.createChatter(false)}" />
+						<p:commandButton value="Отправить"
+							action="#{chatterBean.createChatter(false)}"
+							update="@([id$=user-chatter-update])" />
 					</p:panel>
 				</p:panel>
 			</p:panel>
+			<div style="clear: both; float: none;"></div>
 		</h:form>
 	</ui:define>
 </ui:composition>
