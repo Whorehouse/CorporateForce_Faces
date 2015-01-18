@@ -70,4 +70,33 @@ public class MainBean implements Serializable {
 	public void actionOpenTrainings() throws Exception {
 		this.redirect(Config.getUriModule(MODULE_TRAININGS),true);
 	}
+	
+	//Faces
+	
+	private static final String FACES_CONTACTS_SAVEOREDIT = "/contacts_saveoredit";
+	private static final String FACES_HOLIDAYS_ADD = "/holidays_add";
+	private static final String FACES_HOLIDAYS_LIST = "/holidays_list";
+	private static final String FACES_USERS_LIST = "/users_list";
+	private static final String FACES_USERS_SHOW = "/users_show";
+	
+	public void actionContactsSaveOrEdit() throws Exception {
+		this.redirect(FACES_CONTACTS_SAVEOREDIT);
+	}
+	
+	public void actionHolidaysAdd() throws Exception {
+		this.redirect(FACES_HOLIDAYS_ADD);
+	}
+	
+	public void actionHolidaysList() throws Exception {
+		this.redirect(FACES_HOLIDAYS_LIST);
+	}
+	
+	public void actionUsersList() throws Exception {
+		this.redirect(FACES_USERS_LIST);
+	}
+	
+	public void actionUsersShow() throws Exception {
+		this.redirect(FACES_USERS_SHOW );
+	}
+	
 }

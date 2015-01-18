@@ -11,17 +11,17 @@
 		<h:form>
 			<p:panel rendered="#{usersBean.isSignedIn()}"
 				style="float:left;"
-				header="Мои коллеги"
+				header="Пользователи"
 				styleClass="user-collegs-block">
-				<c:forEach var="user" items="#{usersBean.listExludeCurrentUsers()}">
+				<c:forEach var="user" items="#{usersBean.listUsers}">
 				   	<div class="user-collegs-item">
 				   		<img class="user-collegs-avatar" src="#{usersBean.getAvatar(user)}"/>
-				   		<p:commandLink  rendered="#{user.contacts==null}" value="#{user.username}" action="users_show" ajax="false">
+				   		<p:commandLink  rendered="#{user.contacts==null}" value="#{user.username}" actionListener="#{mainBean.actionUsersShow}" ajax="false">
 				   			<f:setPropertyActionListener
 								value="#{user}"
 								target="#{usersBean.showUser}" />
 				   		</p:commandLink>
-				   		<p:commandLink  rendered="#{user.contacts!=null}" value="#{user.contacts.firstname} #{user.contacts.nickname} #{user.contacts.lastname} (#{user.username})" action="users_show" ajax="false">
+				   		<p:commandLink  rendered="#{user.contacts!=null}" value="#{user.contacts.firstname} #{user.contacts.nickname} #{user.contacts.lastname} (#{user.username})" actionListener="#{mainBean.actionUsersShow}" ajax="false">
 				   			<f:setPropertyActionListener
 								value="#{user}"
 								target="#{usersBean.showUser}" />

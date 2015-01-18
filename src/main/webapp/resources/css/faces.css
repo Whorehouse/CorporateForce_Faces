@@ -14,6 +14,7 @@
 	padding-left: 15px;
 	padding-right: 15px;
 	margin:0 10px;
+	width:250px;
 }
 
 .user-contacts-parameters {
@@ -71,7 +72,7 @@
 
 .user-chatter-block {
 	float:left;
-	width:500px;
+	width:400px;
 }
 
 .user-chatter-elements {

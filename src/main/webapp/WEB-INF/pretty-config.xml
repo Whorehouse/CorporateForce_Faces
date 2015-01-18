@@ -23,5 +23,33 @@
 		<pattern value="/logout" />
 		<view-id value="/view/logout.jsf" />
 	</url-mapping>
+	
+	<!-- Faces -->
+
+	<url-mapping id="contacts_saveoredit">
+		<pattern value="/contacts_saveoredit" />
+		<view-id value="/view/contacts_saveoredit.jsf" />
+	</url-mapping>
+
+	<url-mapping id="holidays_add">
+		<pattern value="/holidays_add" />
+		<view-id value="/view/holidays_add.jsf" />
+	</url-mapping>
+
+	<url-mapping id="holidays_list">
+		<pattern value="/holidays_list" />
+		<view-id value="/view/holidays_list.jsf" />
+	</url-mapping>
+
+	<url-mapping id="users_list">
+		<pattern value="/users_list" />
+		<view-id value="/view/users_list.jsf" />
+	</url-mapping>
+
+	<url-mapping id="users_show">
+		<pattern value="/users_show" />
+		<view-id value="/view/users_show.jsf" />
+	</url-mapping>
+	
 
 </pretty-config>

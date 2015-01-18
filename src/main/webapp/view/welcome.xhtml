@@ -32,11 +32,11 @@
 				<!-- Аватар -->
 				<c:if test="#{!usersBean.isExistContacts()}">
 					<img class="user-avatar" src="#{usersBean.getAvatar()}"
-						style="width: 200px;" />
+						style="width: 100px;" />
 				</c:if>
 				<c:if test="#{usersBean.isExistContacts()}">
 					<img class="user-avatar" src="#{usersBean.getAvatar()}"
-						onclick="PF('popupUploadImage').show();" style="width: 200px;" />
+						onclick="PF('popupUploadImage').show();" style="width: 100px;" />
 				</c:if>
 				
 				<!-- Контакты -->
@@ -60,12 +60,34 @@
 						<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText
 								value="#{usersBean.currentUser.contacts.about}" /></li>
 					</ul>
+					<br />
+					<p:commandButton 
+						value="Просмотреть отпуска" 
+						actionListener="#{mainBean.actionHolidaysList}">
+						<f:setPropertyActionListener
+							value="#{holidaysBean.listByUsers(usersBean.currentUser)}"
+							target="#{holidaysBean.listHolidays}" />
+						<f:setPropertyActionListener
+							value="#{usersBean.currentUser}"
+							target="#{usersBean.showUser}" />
+					</p:commandButton>
 				</p:panel>
 				<p:panel styleClass="user-contacts-block"
 					rendered="#{!usersBean.isExistContacts()}">
 					<b>Нет контактов.</b>
 					<br />
 					<p:commandButton value="Создать" action="contacts_saveoredit" />
+					<br />
+					<p:commandButton 
+						value="Просмотреть отпуска" 
+						actionListener="#{mainBean.actionHolidaysList}">
+						<f:setPropertyActionListener
+							value="#{holidaysBean.listByUsers(usersBean.currentUser)}"
+							target="#{holidaysBean.listHolidays}" />							
+						<f:setPropertyActionListener
+							value="#{usersBean.currentUser}"
+							target="#{usersBean.showUser}" />
+					</p:commandButton>
 				</p:panel>
 				
 				<!-- Стена -->

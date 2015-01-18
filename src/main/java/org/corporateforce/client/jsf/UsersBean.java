@@ -24,6 +24,7 @@ public class UsersBean {
 
 	private Users currentUser;
 	private Users showUser;
+	private List<Users> listUsers;
 	
 	@Autowired
 	private MainBean mainBean;	
@@ -32,46 +33,44 @@ public class UsersBean {
 	@Autowired
 	private ContactsPort contactsPort;
 	
-	public Users getShowUser() {
-		return showUser;
-	}
+	public String getAvatar() {
+    	if (isExistAvatar()) {
+    		return Config.getUriServer()+"Avatars/showAvatar/"+currentUser.getContacts().getAvatars().getId();
+    	} else {
+    		return Config.getUriServer()+"resources/images/img_no_photo.png";
+    	}
+    }
 
-	public void setShowUser(Users showUser) {
-		this.showUser = showUser;
-	}
+	public String getAvatar(Users u) {
+    	if (isExistAvatar(u)) {
+    		return Config.getUriServer()+"Avatars/showAvatar/"+u.getContacts().getAvatars().getId();
+    	} else {
+    		return Config.getUriServer()+"resources/images/img_no_photo.png";
+    	}
+    }
 
 	public Users getCurrentUser() {
 		return currentUser;
 	}
 	
+	public String getFullname() {
+		return getFullname(currentUser);
+	}
+	
+	public String getFullname(Users u) {
+		if (u.getContacts()!=null) {
+			return u.getContacts().getFirstname()+" "+u.getContacts().getNickname()+" "+u.getContacts().getLastname()+" ("+u.getUsername()+")";
+		} else {
+			return u.getUsername();
+		}
+	}
+
 	public Map<String, String> getGenders() {
 		Map<String, String> genders= new HashMap<String, String>();
 		genders.put("male", "Мужской");
 		genders.put("female", "Женский");
 		return genders;
-	}
-	
-	public Map<String, String> invertMap(Map<String, String> map) {
-		Map<String, String> newMap= new HashMap<String, String>();
-		for (Entry<String, String> entry : map.entrySet()) {
-			newMap.put(entry.getValue(), entry.getKey());
-		}
-		return newMap;
-	}
-
-	public void setCurrentUser(Users currentUser) {
-		this.currentUser = currentUser;
 	}	
-
-	public void setMainBean(MainBean mainBean) {
-		this.mainBean = mainBean;
-	}
-	public void setUsersPort(UsersPort usersPort) {
-		this.usersPort = usersPort;
-	}
-	public void setContactsPort(ContactsPort contactsPort) {
-		this.contactsPort = contactsPort;
-	}
 
 	public List<Users> getList() {
 		List<Users> res = null;
@@ -82,9 +81,35 @@ public class UsersBean {
 		}
 		return res;
 	}
+	public List<Users> getListUsers() {
+		return listUsers;
+	}
+	public Users getShowUser() {
+		return showUser;
+	}
+
+	public Map<String, String> invertMap(Map<String, String> map) {
+		Map<String, String> newMap= new HashMap<String, String>();
+		for (Entry<String, String> entry : map.entrySet()) {
+			newMap.put(entry.getValue(), entry.getKey());
+		}
+		return newMap;
+	}
+
+	public boolean isExistAvatar() {
+		return isExistAvatar(currentUser);
+	}
+
+	public boolean isExistAvatar(Users u) {
+		return (isExistContacts(u)&&u.getContacts().getAvatars()!=null) ? true : false;
+	}
 	
-	public boolean isSignedIn() {
-		return currentUser!=null;
+	public boolean isExistContacts() {
+		return isExistContacts(currentUser);
+	}
+	
+	public boolean isExistContacts(Users u) {
+		return (u!=null && u.getContacts()!=null) ? true : false;
 	}
 	
 	public boolean isLoginEnabledAccess() {
@@ -103,6 +128,10 @@ public class UsersBean {
 		return u!=null && u.getProfiles()!=null && u.getProfiles().isManageUsers();
 	}
 	
+	public boolean isSignedIn() {
+		return currentUser!=null;
+	}
+	
 	public boolean isSystemControlAccess() {
 		return isSystemControlAccess(currentUser);
 	}
@@ -111,11 +140,45 @@ public class UsersBean {
 		return u!=null && u.getProfiles()!=null && u.getProfiles().isSystemControl();
 	}
 	
-	public void logout() {
-		currentUser = null;
+	public boolean isManager() {
+		return isManager(currentUser);
 	}
 	
-	public void login() {
+	public boolean isManager(Users u) {
+		return usersPort.isManager(u.getId());
+	}
+	
+	public boolean isManager(Users manager, Users user) {
+		return usersPort.isManager(manager.getId(), user.getId());
+	}
+	
+	public List<Users> listByManager() {
+		return listByManager(currentUser);
+	}
+	
+	public List<Users> listByManager(Users u) {
+		List<Users> res = null;
+    	try {
+        	res = usersPort.listByManager(u.getId());        	
+    	} catch (Exception e) {
+    		res = new ArrayList<Users>();
+    	}
+    	return res;
+	}
+	
+	public List<Users> listExludeCurrentUsers() {
+    	List<Users> res = null;
+    	try {
+        	res = usersPort.listExclude(currentUser.getId());        	
+    	} catch (Exception e) {
+    		res = new ArrayList<Users>();
+    	}
+    	return res;
+    }
+	
+	//Contacts
+    
+    public void login() {
 		String login = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("login");
 		String password = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("password");
 		System.out.println("HEEEY Faces Login "+login+" password "+password);
@@ -127,73 +190,45 @@ public class UsersBean {
 			System.out.println("No:"+res);
 		}
 	}
+    
+	public void logout() {
+		currentUser = null;
+	}
+    
+	public void setContactsPort(ContactsPort contactsPort) {
+		this.contactsPort = contactsPort;
+	}
 	
-	public void updateUser() {
+	public void setCurrentUser(Users currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	public void setListUsers(List<Users> listUsers) {
+		this.listUsers = listUsers;
+	}
+	
+	public void setMainBean(MainBean mainBean) {
+		this.mainBean = mainBean;
+	}
+	
+	public void setShowUser(Users showUser) {
+		this.showUser = showUser;
+	}
+    
+    public void setUsersPort(UsersPort usersPort) {
+		this.usersPort = usersPort;
+	}
+    
+    public void updateUser() {
 		if (currentUser!=null) {
 			setCurrentUser(usersPort.get(currentUser.getId()));
 		}
 	}
-	
-	//Contacts
     
     public void uploadImage(FileUploadEvent event) throws Exception {
         if (event.getFile() != null) {
         	ClientFileUploader.uploadAvatar(event.getFile(), currentUser);
         	mainBean.actionMainPage();
         }
-    }
-    
-	public boolean isExistContacts() {
-		return isExistContacts(currentUser);
-	}
-    
-	public boolean isExistAvatar() {
-		return isExistAvatar(currentUser);
-	}
-	
-	public boolean isExistContacts(Users u) {
-		return (u!=null && u.getContacts()!=null) ? true : false;
-	}
-	
-	public boolean isExistAvatar(Users u) {
-		return (isExistContacts(u)&&u.getContacts().getAvatars()!=null) ? true : false;
-	}
-	
-	public String getFullname(Users u) {
-		if (u.getContacts()!=null) {
-			return u.getContacts().getFirstname()+" "+u.getContacts().getNickname()+" "+u.getContacts().getLastname()+" ("+u.getUsername()+")";
-		} else {
-			return u.getUsername();
-		}
-	}
-	
-	public String getFullname() {
-		return getFullname(currentUser);
-	}
-    
-    public String getAvatar() {
-    	if (isExistAvatar()) {
-    		return Config.getUriServer()+"Avatars/showAvatar/"+currentUser.getContacts().getAvatars().getId();
-    	} else {
-    		return Config.getUriServer()+"resources/images/img_no_photo.png";
-    	}
-    }
-    
-    public String getAvatar(Users u) {
-    	if (isExistAvatar(u)) {
-    		return Config.getUriServer()+"Avatars/showAvatar/"+u.getContacts().getAvatars().getId();
-    	} else {
-    		return Config.getUriServer()+"resources/images/img_no_photo.png";
-    	}
-    }
-    
-    public List<Users> listExludeCurrentUsers() {
-    	List<Users> res = null;
-    	try {
-        	res = usersPort.listExclude(currentUser.getId());        	
-    	} catch (Exception e) {
-    		res = new ArrayList<Users>();
-    	}
-    	return res;
     }
 }

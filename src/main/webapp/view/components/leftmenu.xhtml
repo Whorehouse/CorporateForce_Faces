@@ -8,21 +8,29 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<h:form rendered="#{usersBean.isSignedIn()}">
 		<p:megaMenu class="user-left-menu" orientation="vertical" rendered="#{usersBean.isSignedIn()}">
-			<p:menuitem value="Моя страница" action="welcome" ajax="false"
-				icon="ui-icon-person" />
-			<p:menuitem value="Мои контакты" action="contacts_saveoredit"
-				ajax="false" icon="ui-icon-note">
+			<p:menuitem value="Моя страница" actionListener="#{mainBean.actionMainPage}" icon="ui-icon-person" />
+			<p:menuitem value="Мои контакты" actionListener="#{mainBean.actionContactsSaveOrEdit}" icon="ui-icon-note">
 				<f:setPropertyActionListener
 					value="#{usersBean.currentUser.contacts}"
 					target="#{contactsBean.currentContacts}" />
 			</p:menuitem>
-			<p:menuitem rendered="#{usersBean.currentUser.users!=null}" value="Мой начальник" action="users_show" ajax="false"
+			<p:menuitem rendered="#{usersBean.currentUser.users!=null}" value="Мой начальник" actionListener="#{mainBean.actionUsersShow}" ajax="false"
 				icon="ui-icon-star">
 				<f:setPropertyActionListener
 					value="#{usersBean.currentUser.users}"
 					target="#{usersBean.showUser}" />
 			</p:menuitem>
-			<p:menuitem value="Мой коллеги" action="users_list" ajax="false" icon="ui-icon-shuffle" />			
+			<p:menuitem value="Коллеги" actionListener="#{mainBean.actionUsersList}" ajax="false" icon="ui-icon-shuffle">
+				<f:setPropertyActionListener
+					value="#{usersBean.listExludeCurrentUsers()}"
+					target="#{usersBean.listUsers}" />
+			</p:menuitem>
+			<p:menuitem value="Подчиненные" rendered="#{usersBean.isManager()}" actionListener="#{mainBean.actionUsersList}" ajax="false" icon="ui-icon-carat-1-s">
+				<f:setPropertyActionListener
+					value="#{usersBean.listByManager()}"
+					target="#{usersBean.listUsers}" />
+			</p:menuitem>	
+					
 		</p:megaMenu>
 	</h:form>
 </ui:composition>

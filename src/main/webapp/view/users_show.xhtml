@@ -16,11 +16,11 @@
 				<!-- Аватар -->
 				<c:if test="#{!usersBean.isExistContacts(usersBean.showUser)}">
 					<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}"
-						style="width: 200px;" />
+						style="width: 100px;" />
 				</c:if>
 				<c:if test="#{usersBean.isExistContacts(usersBean.showUser)}">
 					<img class="user-avatar" src="#{usersBean.getAvatar(usersBean.showUser)}"
-						onclick="PF('popupUploadImage').show();" style="width: 200px;" />
+						onclick="PF('popupUploadImage').show();" style="width: 100px;" />
 				</c:if>
 				
 				<!-- Контакты -->
@@ -44,10 +44,38 @@
 						<li><b>О себе:</b>&nbsp;&nbsp;&nbsp;<h:outputText
 								value="#{usersBean.showUser.contacts.about}" /></li>
 					</ul>
+					<br/><br/>
+					<p:commandButton 
+						value="Просмотреть отпуска" 
+						actionListener="#{mainBean.actionHolidaysList}">
+						<f:setPropertyActionListener
+							value="#{holidaysBean.listByUsers(usersBean.showUser)}"
+							target="#{holidaysBean.listHolidays}" />
+					</p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Назначить отпуск" 
+						rendered="#{usersBean.isManager(usersBean.currentUser, usersBean.showUser)}"
+						actionListener="#{mainBean.actionHolidaysAdd}"
+					></p:commandButton>
 				</p:panel>
 				<p:panel styleClass="user-contacts-block"
 					rendered="#{!usersBean.isExistContacts(usersBean.showUser)}">
 					<b>Нет контактов.</b>
+					<br/><br/>
+					<p:commandButton 
+						value="Просмотреть отпуска" 
+						actionListener="#{mainBean.actionHolidaysList}">
+						<f:setPropertyActionListener
+							value="#{holidaysBean.listByUsers(usersBean.showUser)}"
+							target="#{holidaysBean.listHolidays}" />
+					</p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Назначить отпуск" 
+						rendered="#{usersBean.isManager(usersBean.currentUser, usersBean.showUser)}"
+						actionListener="#{mainBean.actionHolidaysAdd}"
+					></p:commandButton>
 				</p:panel>
 				
 				<!-- Стена -->
