@@ -7,9 +7,9 @@ import java.util.List;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.corporateforce.client.config.Config;
 import org.corporateforce.server.model.Status;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+@SuppressWarnings(value = {"rawtypes","unchecked"})
 public abstract class AbstractPort<T> {
 	
 	public Class<T> entityClass;
@@ -20,6 +20,7 @@ public abstract class AbstractPort<T> {
 	
 	public T add(T entity) {
 		RestTemplate restTemplate = new RestTemplate();
+		
 		LinkedHashMap res = restTemplate.postForObject(Config.getUriServer()+ entityClass.getSimpleName() + "/add", entity, LinkedHashMap.class);
 		return convertToEntity(res,entityClass);
 	}

@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 
 import org.corporateforce.client.port.ChatterPort;
 import org.corporateforce.server.model.Chatter;
-import org.corporateforce.server.model.Contacts;
 import org.corporateforce.server.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

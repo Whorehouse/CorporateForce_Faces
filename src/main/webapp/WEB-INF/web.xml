@@ -18,9 +18,9 @@
 		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
 
-	<listener>
+	<!-- <listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	</listener> -->
 
 	<servlet>
 		<servlet-name>facesServlet</servlet-name>
@@ -39,4 +39,21 @@
 	    <filter-name>PrimeFaces FileUpload Filter</filter-name>
 	    <servlet-name>facesServlet</servlet-name>
 	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-config.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 </web-app>

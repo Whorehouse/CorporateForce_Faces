@@ -9,6 +9,7 @@ import org.corporateforce.server.model.Users;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+@SuppressWarnings(value = {"rawtypes","unchecked"})
 @Service
 public class ChatterPort extends AbstractPort<Chatter> {
 	

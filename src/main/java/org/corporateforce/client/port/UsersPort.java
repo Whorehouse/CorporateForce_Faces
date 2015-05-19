@@ -9,9 +9,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+@SuppressWarnings(value = {"rawtypes","unchecked"})
 @Service
 public class UsersPort extends AbstractPort<Users> {
 	
