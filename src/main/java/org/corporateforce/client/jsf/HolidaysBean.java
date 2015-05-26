@@ -59,7 +59,9 @@ public class HolidaysBean {
 
 	public void createHolidays() throws Exception {
 		newHolidays.setUsers(usersBean.getShowUser());
-		HolidaysPort.add(newHolidays);
+		if (newHolidays.getStart().compareTo(newHolidays.getEnd())<=0) {
+			HolidaysPort.add(newHolidays);
+		}
 		newHolidays = new Holidays();
 		mainBean.actionUsersShow();
 	}

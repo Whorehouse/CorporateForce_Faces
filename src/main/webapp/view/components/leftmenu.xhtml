@@ -30,7 +30,22 @@
 					value="#{usersBean.listByManager()}"
 					target="#{usersBean.listUsers}" />
 			</p:menuitem>	
-					
+			<p:menuitem value="Рабочие часы" actionListener="#{mainBean.actionWorktimeList}" ajax="false">
+				<f:setPropertyActionListener
+					value="#{worktimeBean.listByUsers(usersBean.currentUser)}"
+					target="#{worktimeBean.listWorktime}" />
+			</p:menuitem>
+			<p:menuitem value="Заметки" actionListener="#{mainBean.actionNotesList}" ajax="false">
+				<f:setPropertyActionListener
+					value="#{notesBean.listByUsers(usersBean.currentUser)}"
+					target="#{notesBean.listNotes}" />
+			</p:menuitem>
+			<p:menuitem value="Праздники" rendered="#{usersBean.isManageUsersAccess()}" actionListener="#{mainBean.actionHolidaysorgList}" ajax="false">
+				<f:setPropertyActionListener
+					value="#{holidaysorgBean.list()}"
+					target="#{holidaysorgBean.listHolidaysorg}" />
+			</p:menuitem>
+			<p:menuitem value="Календарь" actionListener="#{mainBean.actionCalendar}" ajax="false"></p:menuitem>
 		</p:megaMenu>
 	</h:form>
 </ui:composition>

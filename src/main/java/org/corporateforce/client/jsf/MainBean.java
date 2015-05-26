@@ -77,6 +77,19 @@ public class MainBean implements Serializable {
 	private static final String FACES_HOLIDAYS_LIST = "/holidays_list";
 	private static final String FACES_USERS_LIST = "/users_list";
 	private static final String FACES_USERS_SHOW = "/users_show";
+	//New
+	private static final String FACES_WORKPERIOD_ADD = "/workperiod_add";
+	private static final String FACES_WORKPERIOD_LIST = "/workperiod_list";
+	private static final String FACES_HOLIDAYSORG_ADD = "/holidaysorg_add";
+	private static final String FACES_HOLIDAYSORG_LIST = "/holidaysorg_list";
+	private static final String FACES_WORKTIME_ADD = "/worktime_add";
+	private static final String FACES_WORKTIME_LIST = "/worktime_list";
+	private static final String FACES_CALENDAR = "/calendar";
+	private static final String FACES_NOTES_ADD = "/notes_add";
+	private static final String FACES_NOTES_EDIT = "/notes_edit";
+	private static final String FACES_NOTES_LIST = "/notes_list";
+	
+	
 	
 	public void actionContactsSaveOrEdit() throws Exception {
 		this.redirect(FACES_CONTACTS_SAVEOREDIT);
@@ -98,4 +111,36 @@ public class MainBean implements Serializable {
 		this.redirect(FACES_USERS_SHOW );
 	}
 	
+	
+	//New
+	public void actionWorkperiodAdd() throws Exception {
+		this.redirect(FACES_WORKPERIOD_ADD);
+	}
+	public void actionWorkperiodList() throws Exception {
+		this.redirect(FACES_WORKPERIOD_LIST);
+	}
+	public void actionHolidaysorgAdd() throws Exception {
+		this.redirect(FACES_HOLIDAYSORG_ADD);
+	}
+	public void actionHolidaysorgList() throws Exception {
+		this.redirect(FACES_HOLIDAYSORG_LIST);
+	}
+	public void actionWorktimeAdd() throws Exception {
+		this.redirect(FACES_WORKTIME_ADD);
+	}
+	public void actionWorktimeList() throws Exception {
+		this.redirect(FACES_WORKTIME_LIST);
+	}
+	public void actionCalendar() throws Exception {
+		this.redirect(FACES_CALENDAR);
+	}
+	public void actionNotesAdd() throws Exception {
+		this.redirect(FACES_NOTES_ADD);
+	}
+	public void actionNotesEdit() throws Exception {
+		this.redirect(FACES_NOTES_EDIT);
+	}
+	public void actionNotesList() throws Exception {
+		this.redirect(FACES_NOTES_LIST);
+	}
 }

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/view/templates/faces.xhtml">
+	<ui:define name="body">
+		<h:form style="float:left; margin-top:0;">
+			<p:panel id="mypersone-page" autoUpdate="true" header="Создать заметку"
+				styleClass="page-block">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="notes-name" value="Название:" />
+					<p:inputText id="notes-name" value="#{notesBean.currentNotes.name}" />				
+					<p:outputLabel for="notes-day" value="День:" />
+					<p:calendar id="notes-day"
+						value="#{notesBean.currentNotes.day}" mode="inline" />	
+					<p:outputLabel for="notes-priority" value="Приоритет:" />
+					<p:inputText id="notes-priority" value="#{notesBean.currentNotes.priority}" />
+					<p:outputLabel for="notes-estimate" value="Длительность:" />
+					<p:inputText id="notes-estimate" value="#{notesBean.currentNotes.estimate}" />				
+				</p:panelGrid>
+				<p:commandButton
+					value="Создать" action="#{notesBean.createNotes()}" />
+				<div style="float: none; clear: both;"></div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

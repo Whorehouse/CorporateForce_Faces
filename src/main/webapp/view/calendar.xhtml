@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/view/templates/faces.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<p:panel
+				style="float:left;width:800px;"
+				header="Календарь"
+				styleClass="calendar-block-first" rendered="#{!calendarBean.isSetDay()}">
+				<p:panelGrid columns="2">
+						<p:outputLabel for="calendar-day-first" value="Выберите день:" />
+						<p:calendar id="calendar-day-first"
+							value="#{calendarBean.day}" mode="inline" />
+						<p:commandButton
+							value="Выбрать" action="#{mainBean.actionCalendar()}" />
+				</p:panelGrid>
+			</p:panel>
+			<p:panel
+				style="float:left;width:800px;"
+				header="Календарь на #{calendarBean.day}"
+				styleClass="calendar-block" rendered="#{calendarBean.isSetDay()}">
+				<p:outputPanel id="calendar-day">
+					<p:panelGrid columns="2">
+						<p:outputLabel for="calendar-day-second" value="Выберите день:" />
+						<p:calendar id="calendar-day-second"
+							value="#{calendarBean.day}" mode="inline" />
+						<p:commandButton
+							value="Выбрать" action="#{mainBean.actionCalendar()}" />
+					</p:panelGrid>
+				</p:outputPanel>
+				<p:outputPanel id="calendar-work">
+					<p:panelGrid columns="2">
+						<p:outputLabel for="calendar-worktime" value="Отработано часов:" />
+						<h:outputText id="calendar-worktime" value="#{calendarBean.currentDayReport.worktime}" />
+						<p:outputLabel for="calendar-estimate" value="Нужно отработать часов:" />
+						<h:outputText id="calendar-estimate" value="#{calendarBean.currentDayReport.estimate}" />
+					</p:panelGrid>
+				</p:outputPanel>
+				<p:outputPanel id="calendar-holidaysorg" >
+					<h:outputText id="calendar-holidaysorg-label" value="Праздники на сегодня:" />
+					<p:dataTable var="holidaysorg" value="#{calendarBean.currentDayReport.holidaysorg}">			 
+					    <p:column headerText="Имя праздника"  style="text-align:center;">
+					        <h:outputText value="#{holidaysorg.name}" />
+					    </p:column>
+					    <p:column headerText="Начало"  style="text-align:center;">
+					        <h:outputText value="#{holidaysorg.start}" ><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+					    </p:column>
+					    <p:column headerText="Конец"  style="text-align:center;">
+					        <h:outputText value="#{holidaysorg.end}" ><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+					    </p:column>
+					</p:dataTable>
+				</p:outputPanel>
+				<p:outputPanel id="calendar-notes" >
+					<h:outputText id="calendar-notes-label" value="Заметки на сегодня:" />
+					<p:dataTable var="notes" value="#{calendarBean.currentDayReport.notes}">			 
+					    <p:column headerText="Название заметки"  style="text-align:center;">
+					        <h:outputText value="#{notes.name}" />
+					    </p:column>
+					    <p:column headerText="Приоритет"  style="text-align:center;">
+					        <h:outputText value="#{notes.priority}" />
+					    </p:column>
+					    <p:column headerText="Длительность"  style="text-align:center;">
+					        <h:outputText value="#{notes.estimate}" />
+					    </p:column>
+					</p:dataTable>
+				</p:outputPanel>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

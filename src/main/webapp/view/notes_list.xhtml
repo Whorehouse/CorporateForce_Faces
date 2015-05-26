@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/view/templates/faces.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<p:panel
+				style="float:left;width:800px;"
+				header="Заметки"
+				styleClass="notes-block">
+				<p:outputPanel id="notes-list">
+					<p:dataTable var="notes" value="#{notesBean.listNotes}">			 
+					    <p:column headerText="Название заметки"  style="text-align:center;">
+					        <h:outputText value="#{notes.name}" />
+					    </p:column>
+					    <p:column headerText="День"  style="text-align:center;">
+					        <h:outputText value="#{notes.day}" ><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+					    </p:column>
+					    <p:column headerText="Приоритет"  style="text-align:center;">
+					        <h:outputText value="#{notes.priority}" />
+					    </p:column>
+					    <p:column headerText="Длительность"  style="text-align:center;">
+					        <h:outputText value="#{notes.estimate}" />
+					    </p:column>
+					 
+					 	<p:column headerText="Редактировать" style="text-align:center;">
+					        <p:commandButton style="center" actionListener="#{mainBean.actionNotesEdit}" ajax="false" icon="ui-icon-pencil">
+					        	<f:setPropertyActionListener
+									value="#{notes}"
+									target="#{notesBean.currentNotes}" />
+					        </p:commandButton>
+					    </p:column>
+					    <p:column headerText="Удалить" style="text-align:center;">
+					        <p:commandButton style="center" action="#{notesBean.deleteNotes(notes)}" update="@([id$=notes-list])" icon="ui-icon-circle-minus"/>
+					    </p:column>
+					</p:dataTable>
+				</p:outputPanel>
+				<p:commandButton 
+						value="Добавить заметку" 
+						actionListener="#{mainBean.actionNotesAdd}">
+				</p:commandButton>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

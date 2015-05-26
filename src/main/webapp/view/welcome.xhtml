@@ -71,6 +71,17 @@
 							value="#{usersBean.currentUser}"
 							target="#{usersBean.showUser}" />
 					</p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Просмотреть рабочие периоды" 
+						actionListener="#{mainBean.actionWorkperiodList}">
+						<f:setPropertyActionListener
+							value="#{workperiodBean.listByUsers(usersBean.currentUser)}"
+							target="#{workperiodBean.listWorkperiod}" />
+						<f:setPropertyActionListener
+							value="#{usersBean.currentUser}"
+							target="#{usersBean.showUser}" />
+					</p:commandButton>
 				</p:panel>
 				<p:panel styleClass="user-contacts-block"
 					rendered="#{!usersBean.isExistContacts()}">
@@ -84,6 +95,17 @@
 						<f:setPropertyActionListener
 							value="#{holidaysBean.listByUsers(usersBean.currentUser)}"
 							target="#{holidaysBean.listHolidays}" />							
+						<f:setPropertyActionListener
+							value="#{usersBean.currentUser}"
+							target="#{usersBean.showUser}" />
+					</p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Просмотреть рабочие периоды" 
+						actionListener="#{mainBean.actionWorkperiodList}">
+						<f:setPropertyActionListener
+							value="#{workperiodBean.listByUsers(usersBean.currentUser)}"
+							target="#{workperiodBean.listWorkperiod}" />
 						<f:setPropertyActionListener
 							value="#{usersBean.currentUser}"
 							target="#{usersBean.showUser}" />

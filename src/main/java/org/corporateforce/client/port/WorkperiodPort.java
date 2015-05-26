@@ -25,7 +25,7 @@ public class WorkperiodPort extends AbstractPort<Workperiod> {
 	
 	public List<Workperiod> listByUsers(Users u) {
 		RestTemplate restTemplate = new RestTemplate();
-		List<LinkedHashMap> list = restTemplate.getForObject(Config.getUriServer()+ entityClass.getSimpleName() + "/listByUsers/"+u.getId(), List.class);
+		List<LinkedHashMap> list = restTemplate.getForObject(Config.getUriServer()+ entityClass.getSimpleName() + "/listByUser/"+u.getId(), List.class);
 		return convertToList(list,entityClass);
 	}
 	

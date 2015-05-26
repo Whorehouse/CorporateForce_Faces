@@ -58,6 +58,20 @@
 						rendered="#{usersBean.isManager(usersBean.currentUser, usersBean.showUser)}"
 						actionListener="#{mainBean.actionHolidaysAdd}"
 					></p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Просмотреть рабочие периоды" 
+						actionListener="#{mainBean.actionWorkperiodList}">
+						<f:setPropertyActionListener
+							value="#{workperiodBean.listByUsers(usersBean.showUser)}"
+							target="#{workperiodBean.listWorkperiod}" />
+					</p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Назначить рабочий период" 
+						rendered="#{usersBean.isManager(usersBean.currentUser, usersBean.showUser)}"
+						actionListener="#{mainBean.actionWorkperiodAdd}"
+					></p:commandButton>
 				</p:panel>
 				<p:panel styleClass="user-contacts-block"
 					rendered="#{!usersBean.isExistContacts(usersBean.showUser)}">
@@ -75,6 +89,20 @@
 						value="Назначить отпуск" 
 						rendered="#{usersBean.isManager(usersBean.currentUser, usersBean.showUser)}"
 						actionListener="#{mainBean.actionHolidaysAdd}"
+					></p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Просмотреть рабочие периоды" 
+						actionListener="#{mainBean.actionWorkperiodList}">
+						<f:setPropertyActionListener
+							value="#{workperiodBean.listByUsers(usersBean.showUser)}"
+							target="#{workperiodBean.listWorkperiod}" />
+					</p:commandButton>
+					<br/><br/>
+					<p:commandButton 
+						value="Назначить рабочий период" 
+						rendered="#{usersBean.isManager(usersBean.currentUser, usersBean.showUser)}"
+						actionListener="#{mainBean.actionWorkperiodAdd}"
 					></p:commandButton>
 				</p:panel>
 				

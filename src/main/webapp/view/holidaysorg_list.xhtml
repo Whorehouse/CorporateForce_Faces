@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/view/templates/faces.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<p:panel
+				style="float:left;width:800px;"
+				header="Праздники"
+				styleClass="holidaysorg-block">
+				<p:outputPanel id="holidaysorg-list">
+					<p:dataTable var="holidaysorg" value="#{holidaysorgBean.listHolidaysorg}">			 
+					    <p:column headerText="Имя праздника"  style="text-align:center;">
+					        <h:outputText value="#{holidaysorg.name}" />
+					    </p:column>
+					    <p:column headerText="Начало"  style="text-align:center;">
+					        <h:outputText value="#{holidaysorg.start}" ><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+					    </p:column>
+					    <p:column headerText="Конец"  style="text-align:center;">
+					        <h:outputText value="#{holidaysorg.end}" ><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+					    </p:column>
+					 
+					    <p:column headerText="Удалить" style="text-align:center;">
+					        <p:commandButton style="center" action="#{holidaysorgBean.deleteHolidaysorg(holidaysorg)}" update="@([id$=holidaysorg-list])" icon="ui-icon-circle-minus"/>
+					    </p:column>
+					</p:dataTable>
+				</p:outputPanel>
+				<p:commandButton 
+						value="Добавить праздник" 
+						actionListener="#{mainBean.actionHolidaysorgAdd}">
+				</p:commandButton>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

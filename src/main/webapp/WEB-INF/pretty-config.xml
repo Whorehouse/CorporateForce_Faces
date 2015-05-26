@@ -41,5 +41,57 @@
 		<view-id value="/view/users_show.jsf" />
 	</url-mapping>
 	
+	<!-- New -->
+	
+	
+	<url-mapping id="workperiod_add">
+		<pattern value="/workperiod_add" />
+		<view-id value="/view/workperiod_add.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="workperiod_list">
+		<pattern value="/workperiod_list" />
+		<view-id value="/view/workperiod_list.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="holidaysorg_add">
+		<pattern value="/holidaysorg_add" />
+		<view-id value="/view/holidaysorg_add.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="holidaysorg_list">
+		<pattern value="/holidaysorg_list"/>
+		<view-id value="/view/holidaysorg_list.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="worktime_add">
+		<pattern value="/worktime_add"/>
+		<view-id value="/view/worktime_add.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="worktime_list">
+		<pattern value="/worktime_list"/>
+		<view-id value="/view/worktime_list.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="calendar">
+		<pattern value="/calendar"/>
+		<view-id value="/view/calendar.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="notes_add">
+		<pattern value="/notes_add"/>
+		<view-id value="/view/notes_add.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="notes_edit">
+		<pattern value="/notes_edit"/>
+		<view-id value="/view/notes_edit.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="notes_list">
+		<pattern value="/notes_list"/>
+		<view-id value="/view/notes_list.jsf" />
+	</url-mapping>
 
 </pretty-config>
