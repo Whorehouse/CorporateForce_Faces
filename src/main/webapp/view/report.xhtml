@@ -11,7 +11,7 @@
 	<style>.ui-state-highlight .ui-icon{ background-image: url("#{request.contextPath}/javax.faces.resource/images/ui-icons_333333_256x240.png.jsf?ln=primefaces-bootstrap");}</style>
 		<h:form id="reportForm">
 			<p:panel
-				style="float:left;width:800px;"
+				style="float:left;width:850px;"
 				header="Отчет"
 				styleClass="report-select">
 				<p:panelGrid columns="2">
@@ -28,39 +28,66 @@
 						<p:commandButton
 							value="Запустить" ajax="false" action="#{mainBean.actionReport()}" actionListener="#{reportBean.renderReport}" styleClass="ui-priority-primary"/>
 				</p:panelGrid>
-				<p:outputPanel id="report-select" rendered="#{reportBean.isRendered()}">
-					HELLO!
-					<c:forEach var="table" items="#{reportBean.report.tables}">
-						<table>
-							<tr>
-								<th colspan="2">Пользователь</th>
-								<c:forEach var="day" items="#{table.dates}">
-									<th>#{workCalendarHelper.dateFormat(day)}</th>
-								</c:forEach>
-								<th>Итого</th>
-								<th>Баланс</th>
-							</tr>
-						<c:forEach var="userRow" items="#{table.rows.keySet()}">
-							<tr>
-								<td rowspan="2">#{usersBean.getFullname(userRow)}</td>	
-								<td>Отработано</td>							
-								<c:forEach var="day" items="#{table.dates}">
-									<td>#{table.rows[userRow].days[day].worktime}</td>
-								</c:forEach>
-								<td>#{table.rows[userRow].totalWorked}</td>
-								<td rowspan="2">#{table.rows[userRow].totalBalance}</td>
-							</tr>
-							<tr>
-								<td>План</td>	
-								<c:forEach var="day" items="#{table.dates}">
-									<td>#{table.rows[userRow].days[day].estimate}</td>
-								</c:forEach>
-								<td>#{table.rows[userRow].totalEstimate}</td>
-							</tr>
+				<p:panel>
+					<p:outputPanel id="report-select" rendered="#{reportBean.isRendered()}">
+						<c:forEach var="table" items="#{reportBean.report.tables}">
+							<div class="ui-datatable ui-widget ui-datatable-tablewrapper">
+								<table style="width: inherit;">
+									<thead>
+										<tr>
+											<th colspan="2" class="ui-state-default" style="text-align: center;">Пользователь</th>
+											<c:forEach var="day" items="#{table.dates}">
+												<th class="ui-state-default" style="text-align: center; width:60px; padding-left: 0; padding-right: 0;">#{workCalendarHelper.dateFormat(day)}</th>
+											</c:forEach>
+											<th class="ui-state-default" style="text-align: center;width:45px;">Итого</th>
+											<th class="ui-state-default" style="text-align: center;width:45px;">Баланс</th>
+										</tr>
+									</thead>
+									<tbody class="ui-datatable-data ui-widget-content">
+										<c:forEach var="userRow" items="#{table.rows.keySet()}">
+											<tr class="ui-widget-content ui-datatable-even">
+												<td rowspan="2" style="width: 100px">#{usersBean.getFullname(userRow)}</td>	
+												<td style="width: 60px">Отработано</td>							
+												<c:forEach var="day" items="#{table.dates}">
+													<td style="text-align: center;width:60px;">#{table.rows[userRow].days[day].worktime}</td>
+												</c:forEach>
+												<td style="text-align: center;width:45px;">#{table.rows[userRow].totalWorked}</td>
+												<td rowspan="2" style="text-align: center;width:45px;">#{table.rows[userRow].totalBalance}</td>
+											</tr>
+											<tr class="ui-widget-content ui-datatable-even">
+												<td style="width: 60px">План</td>	
+												<c:forEach var="day" items="#{table.dates}">
+													<td style="text-align: center;width:60px;">#{table.rows[userRow].days[day].estimate}</td>
+												</c:forEach>
+												<td style="text-align: center;width:45px;">#{table.rows[userRow].totalEstimate}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 						</c:forEach>
-						</table>
-					</c:forEach>
-				</p:outputPanel>
+					</p:outputPanel>
+					<p:outputPanel>
+						<div class="ui-datatable ui-widget ui-datatable-tablewrapper" style="margin-top:30px;">
+							<table style="width: inherit;">
+								<thead>
+									<tr>
+										<th class="ui-state-default" style="text-align: center;">Итого отработано</th>
+										<th class="ui-state-default" style="text-align: center;">Итого план</th>
+										<th class="ui-state-default" style="text-align: center;">Общий баланс</th>
+									</tr>
+								</thead>
+								<tbody class="ui-datatable-data ui-widget-content">
+									<tr class="ui-widget-content ui-datatable-even">
+										<td style="width: 150px; font-weight: bold;">#{reportBean.report.totalWorked}</td>	
+										<td style="width: 150px; font-weight: bold;">#{reportBean.report.totalEstimate}</td>	
+										<td style="width: 150px; font-weight: bold;">#{reportBean.report.totalBalance}</td>	
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</p:outputPanel>
+				</p:panel>
 			</p:panel>
 		</h:form>
 	</ui:define>
