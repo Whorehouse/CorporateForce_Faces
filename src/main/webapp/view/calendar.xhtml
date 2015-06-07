@@ -8,7 +8,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/view/templates/faces.xhtml">
 	<ui:define name="body">
-		<h:form>
+		<h:form id="calendarForm">
 			<p:panel
 				style="float:left;width:800px;"
 				header="Календарь"
@@ -23,15 +23,15 @@
 			</p:panel>
 			<p:panel
 				style="float:left;width:800px;"
-				header="Календарь на #{calendarBean.day}"
+				header="Календарь на #{workCalendarHelper.dateFormat(calendarBean.day)}"
 				styleClass="calendar-block" rendered="#{calendarBean.isSetDay()}">
 				<p:outputPanel id="calendar-day">
 					<p:panelGrid columns="2">
 						<p:outputLabel for="calendar-day-second" value="Выберите день:" />
 						<p:calendar id="calendar-day-second"
-							value="#{calendarBean.day}" mode="inline" />
-						<p:commandButton
-							value="Выбрать" action="#{mainBean.actionCalendar()}" />
+							value="#{calendarBean.day}" mode="inline" onchange="#{mainBean.actionCalendar()}">
+							<f:ajax event="dateSelect" render="calendarForm" listener="#{calendarBean.isSetDay}" />
+						</p:calendar>
 					</p:panelGrid>
 				</p:outputPanel>
 				<p:outputPanel id="calendar-work">
@@ -41,6 +41,26 @@
 						<p:outputLabel for="calendar-estimate" value="Нужно отработать часов:" />
 						<h:outputText id="calendar-estimate" value="#{calendarBean.currentDayReport.estimate}" />
 					</p:panelGrid>
+				</p:outputPanel>
+				<p:outputPanel id="calendar-workperiod" >
+					<h:outputText id="calendar-workperiod-label" value="Рабочие периоды на сегодня:" />
+					<p:dataTable var="workperiod" value="#{calendarBean.currentDayReport.workperiod}">			 
+					    <p:column headerText="Дней работы"  style="text-align:center;">
+					        <h:outputText value="#{workperiod.workdaylong}" />
+					    </p:column>
+					    <p:column headerText="Дней отдыха"  style="text-align:center;">
+					        <h:outputText value="#{workperiod.restdaylong}" />
+					    </p:column>
+					    <p:column headerText="Рабочий день, часов"  style="text-align:center;">
+					        <h:outputText value="#{workperiod.hours}" />
+					    </p:column>
+					    <p:column headerText="Начало периода"  style="text-align:center;">
+					        <h:outputText value="#{workperiod.start}" ><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+					    </p:column>					 
+					    <p:column headerText="Конец периода"  style="text-align:center;">
+					        <h:outputText value="#{workperiod.end}" ><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+					    </p:column>
+					</p:dataTable>
 				</p:outputPanel>
 				<p:outputPanel id="calendar-holidaysorg" >
 					<h:outputText id="calendar-holidaysorg-label" value="Праздники на сегодня:" />

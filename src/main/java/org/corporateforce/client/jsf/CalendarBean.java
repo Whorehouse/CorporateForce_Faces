@@ -1,20 +1,16 @@
 package org.corporateforce.client.jsf;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.corporateforce.client.port.NotesPort;
 import org.corporateforce.client.port.WorktimePort;
 import org.corporateforce.client.port.HolidaysorgPort;
 import org.corporateforce.client.port.WorkperiodPort;
+import org.corporateforce.helper.WorkCalendarHelper;
 import org.corporateforce.server.model.Holidaysorg;
 import org.corporateforce.server.model.Notes;
 import org.corporateforce.server.model.Workperiod;
-import org.corporateforce.server.model.Worktime;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -29,13 +25,15 @@ public class CalendarBean {
 	@Autowired
 	private UsersBean usersBean;	
 	@Autowired
-	private NotesPort NotesPort;
+	private NotesPort notesPort;
 	@Autowired
-	private WorktimePort WorktimePort;
+	private WorktimePort worktimePort;
 	@Autowired
-	private HolidaysorgPort HolidaysorgPort;
+	private HolidaysorgPort holidaysorgPort;
 	@Autowired
-	private WorkperiodPort WorkperiodPort;
+	private WorkperiodPort workperiodPort;
+	@Autowired
+	private WorkCalendarHelper workCalendarHelper;
 	
 	private Date day;
 	private DayReport currentDayReport;
@@ -58,64 +56,23 @@ public class CalendarBean {
 	}
 	public void setDayReport() {
 		currentDayReport = new DayReport();
-		List<Workperiod> wps = WorkperiodPort.listByRangeOverlap(usersBean.getCurrentUser(), day, day);
-		List<Worktime> wts = WorktimePort.listByRangeOverlap(usersBean.getCurrentUser(), day, day);
-		List<Holidaysorg> hs = HolidaysorgPort.listByRangeOverlap(day, day);
-		Integer wrk = 0;
-		Integer est = 0;
-		
-		if (hs.size()<=0) {
-			for (Workperiod wp: wps) {
-				Integer tmp = getEstimateDay(wp, day);
-				if (tmp>0) {
-					est = tmp;
-					break;
-				}
-			}
-		}		
-		for (Worktime wt: wts) {
-			wrk+=wt.getHours();
-		}
+		WorkCalendarHelper.DayReport dayReport = workCalendarHelper.getDayReport(usersBean.getCurrentUser(), day);
 		currentDayReport.setDay(day);
-		currentDayReport.setWorktime(wrk);
-		currentDayReport.setEstimate(est);
-		currentDayReport.setHolidaysorg(hs);
-		currentDayReport.setNotes(NotesPort.listByUserAndDay(usersBean.getCurrentUser(), day));
+		currentDayReport.setWorktime(dayReport.getWorktime());
+		currentDayReport.setEstimate(dayReport.getEstimate());
+		
+		currentDayReport.setHolidaysorg(holidaysorgPort.listByRangeOverlap(day, day));
+		currentDayReport.setNotes(notesPort.listByUserAndDay(usersBean.getCurrentUser(), day));
+		currentDayReport.setWorkperiod(workperiodPort.listByRangeOverlap(usersBean.getCurrentUser(), day, day));
 	}
-	public Integer getEstimateDay(Workperiod wp, Date ed) {
-		if (ed.compareTo(wp.getStart())>=0 && ed.compareTo(wp.getEnd())<=0) {
-			Integer cicle = wp.getWorkdaylong()+wp.getRestdaylong();
-			Integer btw = Days.daysBetween(DateToLocalDate(wp.getStart()), DateToLocalDate(day)).getDays();
-			Integer ost = btw % cicle;
-			System.out.println("ost"+ost+"cicle"+cicle+"btw"+btw);
-			if (ost<wp.getWorkdaylong()) {
-				return wp.getHours();
-			} else {
-				return 0;
-			}
-		} else {
-			return 0;
-		}
-	}
-	
-	@SuppressWarnings("deprecation")
-	public LocalDate DateToLocalDate(Date date) {
-		GregorianCalendar cl = new GregorianCalendar();
-		cl.setTime(date);
-		return new LocalDate(cl.get(Calendar.YEAR), cl.get(Calendar.MONTH), cl.get(Calendar.DAY_OF_MONTH));
-	}
-	
-	@SuppressWarnings("deprecation")
-	public Date LocalDateToDate(LocalDate localDate) {
-		return new Date(localDate.getYear(), localDate.getMonthOfYear(), localDate.getDayOfMonth());
-	}
-	
+		
 	public class DayReport {
 		private Date day;
 		private Integer worktime;
 		private Integer estimate;
 		private List<Holidaysorg> holidaysorg;
 		private List<Notes> notes;
+		private List<Workperiod> workperiod;
 		
 		public DayReport() {
 			super();
@@ -125,11 +82,9 @@ public class CalendarBean {
 		public Date getDay() {
 			return day;
 		}
-
 		public void setDay(Date day) {
 			this.day = day;
 		}
-
 		public Integer getWorktime() {
 			return worktime;
 		}
@@ -153,6 +108,12 @@ public class CalendarBean {
 		}
 		public void setNotes(List<Notes> notes) {
 			this.notes = notes;
+		}
+		public List<Workperiod> getWorkperiod() {
+			return workperiod;
+		}
+		public void setWorkperiod(List<Workperiod> workperiod) {
+			this.workperiod = workperiod;
 		}
 	}
 }

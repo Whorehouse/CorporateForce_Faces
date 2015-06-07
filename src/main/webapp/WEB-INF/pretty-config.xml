@@ -74,11 +74,6 @@
 		<view-id value="/view/worktime_list.jsf" />
 	</url-mapping>
 		
-	<url-mapping id="calendar">
-		<pattern value="/calendar"/>
-		<view-id value="/view/calendar.jsf" />
-	</url-mapping>
-		
 	<url-mapping id="notes_add">
 		<pattern value="/notes_add"/>
 		<view-id value="/view/notes_add.jsf" />
@@ -92,6 +87,16 @@
 	<url-mapping id="notes_list">
 		<pattern value="/notes_list"/>
 		<view-id value="/view/notes_list.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="calendar">
+		<pattern value="/calendar"/>
+		<view-id value="/view/calendar.jsf" />
+	</url-mapping>
+		
+	<url-mapping id="report">
+		<pattern value="/report"/>
+		<view-id value="/view/report.jsf" />
 	</url-mapping>
 
 </pretty-config>

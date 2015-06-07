@@ -84,10 +84,11 @@ public class MainBean implements Serializable {
 	private static final String FACES_HOLIDAYSORG_LIST = "/holidaysorg_list";
 	private static final String FACES_WORKTIME_ADD = "/worktime_add";
 	private static final String FACES_WORKTIME_LIST = "/worktime_list";
-	private static final String FACES_CALENDAR = "/calendar";
 	private static final String FACES_NOTES_ADD = "/notes_add";
 	private static final String FACES_NOTES_EDIT = "/notes_edit";
 	private static final String FACES_NOTES_LIST = "/notes_list";
+	private static final String FACES_CALENDAR = "/calendar";
+	private static final String FACES_REPORT = "/report";
 	
 	
 	
@@ -131,9 +132,6 @@ public class MainBean implements Serializable {
 	public void actionWorktimeList() throws Exception {
 		this.redirect(FACES_WORKTIME_LIST);
 	}
-	public void actionCalendar() throws Exception {
-		this.redirect(FACES_CALENDAR);
-	}
 	public void actionNotesAdd() throws Exception {
 		this.redirect(FACES_NOTES_ADD);
 	}
@@ -142,5 +140,11 @@ public class MainBean implements Serializable {
 	}
 	public void actionNotesList() throws Exception {
 		this.redirect(FACES_NOTES_LIST);
+	}
+	public void actionCalendar() throws Exception {
+		this.redirect(FACES_CALENDAR);
+	}
+	public void actionReport() throws Exception {
+		this.redirect(FACES_REPORT);
 	}
 }

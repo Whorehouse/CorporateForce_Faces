@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/view/templates/faces.xhtml">
+	<ui:define name="body">
+	<style>.ui-state-highlight .ui-icon{ background-image: url("#{request.contextPath}/javax.faces.resource/images/ui-icons_333333_256x240.png.jsf?ln=primefaces-bootstrap");}</style>
+		<h:form id="reportForm">
+			<p:panel
+				style="float:left;width:800px;"
+				header="Отчет"
+				styleClass="report-select">
+				<p:panelGrid columns="2">
+						<p:outputLabel for="report-day-start" value="Начало периода:" />
+						<p:calendar id="report-day-start"
+							value="#{reportBean.startDay}" mode="popup" readonlyInput="true"/>
+						<p:outputLabel for="report-day-end" value="Окончание периода:" />
+						<p:calendar id="report-day-end"
+							value="#{reportBean.endDay}" mode="popup" readonlyInput="true"/>
+						<p:outputLabel for="report-users" value="Пользователи:" />
+						<p:selectManyMenu id="report-users" converter="#{usersConverter}" value="#{reportBean.usersSelected}" showCheckbox="true" scrollHeight="200" style="width:200px;">
+							<f:selectItems value="#{reportBean.usersList}" var="users" itemLabel="#{usersBean.getFullname(users)}" itemValue="#{users}" />
+						</p:selectManyMenu>
+						<p:commandButton
+							value="Запустить" ajax="false" action="#{mainBean.actionReport()}" actionListener="#{reportBean.renderReport}" styleClass="ui-priority-primary"/>
+				</p:panelGrid>
+				<p:outputPanel id="report-select" rendered="#{reportBean.isRendered()}">
+					HELLO!
+					<c:forEach var="table" items="#{reportBean.report.tables}">
+						<table>
+							<tr>
+								<th colspan="2">Пользователь</th>
+								<c:forEach var="day" items="#{table.dates}">
+									<th>#{workCalendarHelper.dateFormat(day)}</th>
+								</c:forEach>
+								<th>Итого</th>
+								<th>Баланс</th>
+							</tr>
+						<c:forEach var="userRow" items="#{table.rows.keySet()}">
+							<tr>
+								<td rowspan="2">#{usersBean.getFullname(userRow)}</td>	
+								<td>Отработано</td>							
+								<c:forEach var="day" items="#{table.dates}">
+									<td>#{table.rows[userRow].days[day].worktime}</td>
+								</c:forEach>
+								<td>#{table.rows[userRow].totalWorked}</td>
+								<td rowspan="2">#{table.rows[userRow].totalBalance}</td>
+							</tr>
+							<tr>
+								<td>План</td>	
+								<c:forEach var="day" items="#{table.dates}">
+									<td>#{table.rows[userRow].days[day].estimate}</td>
+								</c:forEach>
+								<td>#{table.rows[userRow].totalEstimate}</td>
+							</tr>
+						</c:forEach>
+						</table>
+					</c:forEach>
+				</p:outputPanel>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
