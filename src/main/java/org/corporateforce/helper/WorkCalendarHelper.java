@@ -37,7 +37,7 @@ public class WorkCalendarHelper {
 	public DayReport getDayReport(Users u, Date day) {
 		DayReport currentDayReport = new DayReport();
 		List<Workperiod> wps = WorkperiodPort.listByRangeOverlap(u, day, day);
-		List<Worktime> wts = WorktimePort.listByRangeOverlap(u, day, day);
+		List<Worktime> wts = WorktimePort.listByUserAndDay(u, day);
 		List<Holidaysorg> hs = HolidaysorgPort.listByRangeOverlap(day, day);
 		Integer wrk = 0;
 		Integer est = 0;

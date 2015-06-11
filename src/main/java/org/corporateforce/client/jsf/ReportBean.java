@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.corporateforce.helper.WorkCalendarHelper.DayReport;
 import org.corporateforce.client.port.NotesPort;
 import org.corporateforce.helper.WorkCalendarHelper;
 import org.corporateforce.helper.WorkCalendarHelper.PeriodRow;

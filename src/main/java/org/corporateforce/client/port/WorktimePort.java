@@ -38,7 +38,9 @@ public class WorktimePort extends AbstractPort<Worktime> {
 	
 	public List<Worktime> listByRangeOverlap(Users u, Date startDate, Date endDate) {
 		String sD = new SimpleDateFormat("yyyy-MM-dd").format(startDate);
+		System.out.println("Start date worktime: "+sD);
 		String eD = new SimpleDateFormat("yyyy-MM-dd").format(endDate);
+		System.out.println("End date worktime: "+eD);
 		RestTemplate restTemplate = new RestTemplate();
 		List<LinkedHashMap> list = restTemplate.getForObject(Config.getUriServer()+ entityClass.getSimpleName() + "/listByRangeOverlap/"+u.getId()+"/"+sD+"/"+eD, List.class);
 		return convertToList(list,entityClass);

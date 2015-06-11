@@ -28,8 +28,8 @@
 						<p:commandButton
 							value="Запустить" ajax="false" action="#{mainBean.actionReport()}" actionListener="#{reportBean.renderReport}" styleClass="ui-priority-primary"/>
 				</p:panelGrid>
-				<p:panel>
-					<p:outputPanel id="report-select" rendered="#{reportBean.isRendered()}">
+				<p:panel rendered="#{reportBean.isRendered()}">
+					<p:outputPanel id="report-select">
 						<c:forEach var="table" items="#{reportBean.report.tables}">
 							<div class="ui-datatable ui-widget ui-datatable-tablewrapper">
 								<table style="width: inherit;">
